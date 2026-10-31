@@ -8,7 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <!-- Adicionadas as fontes originais + as fontes novas da Lista de Presentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Lora:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:wght@400;500;600;700&family=Parisienne&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <style>
@@ -255,7 +256,7 @@
         
         .btn-small { padding: 10px 16px; font-size: 0.75rem; width: auto; margin-top: 0.5rem; }
 
-        /* MODAIS REAPROVEITADOS */
+        /* MODAIS */
         #confirm-modal, #gift-modal {
             position: fixed;
             inset: 0;
@@ -293,8 +294,315 @@
         .input-elegant:focus { border-color: var(--color-pink-dark); background: #fff; box-shadow: 0 0 0 3px rgba(209, 155, 163, 0.2); }
         .input-elegant::placeholder { color: #999; font-style: italic; }
 
-        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background-color: rgba(50, 50, 50, 0.95); color: white; padding: 14px 28px; border-radius: 30px; font-size: 0.9rem; font-weight: 500; z-index: 200; opacity: 0; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); box-shadow: 0 10px 30px rgba(0,0,0,0.25); white-space: nowrap; font-family: var(--font-body); }
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background-color: rgba(50, 50, 50, 0.95); color: white; padding: 14px 28px; border-radius: 30px; font-size: 0.9rem; font-weight: 500; z-index: 400; opacity: 0; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); box-shadow: 0 10px 30px rgba(0,0,0,0.25); white-space: nowrap; font-family: var(--font-body); }
         #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+        /* =========================================
+           NOVA TELA CHEIA: LISTA DE PRESENTES
+           ========================================= */
+        #gift-list-fullscreen {
+            position: fixed;
+            inset: 0;
+            z-index: 300;
+            background: radial-gradient(ellipse at 10% 10%, #eadbd333, transparent 40%),
+                        radial-gradient(ellipse at 90% 90%, #cdb18c20, transparent 40%),
+                        #fbf6f1;
+            font-family: 'Montserrat', sans-serif;
+            color: #594849;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 35px 15px;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.5s ease;
+            
+            /* Variáveis locais do tema da lista */
+            --ivory: #fbf6f1;
+            --paper: #fffdfa;
+            --rose: #b77b83;
+            --deep: #80545b;
+            --champagne: #cdb18c;
+            --ink: #594849;
+            --line: #e8d9d1;
+            --pale: #f7efeb;
+        }
+
+        #gift-list-fullscreen.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        #gift-list-fullscreen * {
+            box-sizing: border-box;
+        }
+
+        #petals {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 305;
+        }
+
+        #gift-list-fullscreen .petal {
+            position: absolute;
+            top: -40px;
+            color: var(--rose);
+            opacity: 0;
+            animation: falling linear forwards;
+            text-shadow: 0 2px 8px #b77b8325;
+        }
+
+        @keyframes falling {
+            0% { transform: translate3d(0,-5vh,0) rotate(0deg); opacity: 0; }
+            12% { opacity: .55; }
+            80% { opacity: .35; }
+            100% { transform: translate3d(65px,110vh,0) rotate(360deg); opacity: 0; }
+        }
+
+        .gift-sparkle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 304;
+            color: var(--champagne);
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: .15; transform: scale(.7); }
+            50% { opacity: .7; transform: scale(1.2); }
+        }
+
+        #gift-list-fullscreen .gl-container {
+            position: relative;
+            max-width: 680px;
+            margin: auto;
+            padding: 65px 45px 50px;
+            background: var(--paper);
+            border: 1px solid var(--champagne);
+            outline: 1px solid var(--line);
+            outline-offset: -11px;
+            box-shadow: 0 18px 55px #80545b13;
+            overflow: hidden;
+            animation: revealPage 1.4s ease both;
+        }
+
+        @keyframes revealPage {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #gift-list-fullscreen .gl-corner {
+            position: absolute;
+            color: var(--rose);
+            opacity: .8;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 32px;
+            line-height: 1;
+        }
+
+        #gift-list-fullscreen .gl-top-left { top: 20px; left: 23px; }
+        #gift-list-fullscreen .gl-top-right { top: 20px; right: 23px; }
+        #gift-list-fullscreen .gl-bottom-left { bottom: 20px; left: 23px; }
+        #gift-list-fullscreen .gl-bottom-right { bottom: 20px; right: 23px; }
+
+        #gift-list-fullscreen .gl-eyebrow {
+            text-align: center;
+            font-size: 9px;
+            font-weight: 400;
+            letter-spacing: 4px;
+            color: #a48d84;
+            margin-bottom: 13px;
+        }
+
+        #gift-list-fullscreen .gl-name {
+            text-align: center;
+            font-family: 'Parisienne', cursive;
+            font-size: 67px;
+            font-weight: 400;
+            color: var(--deep);
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        #gift-list-fullscreen .gl-ornament {
+            text-align: center;
+            color: var(--champagne);
+            font-size: 17px;
+            margin: 15px 0 22px;
+            letter-spacing: 8px;
+        }
+
+        #gift-list-fullscreen .gl-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            margin: 24px auto;
+            color: var(--champagne);
+            font-size: 12px;
+        }
+
+        #gift-list-fullscreen .gl-divider::before,
+        #gift-list-fullscreen .gl-divider::after {
+            content: "";
+            width: 75px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--champagne));
+        }
+
+        #gift-list-fullscreen .gl-divider::after {
+            background: linear-gradient(to left, transparent, var(--champagne));
+        }
+
+        #gift-list-fullscreen h2 {
+            font-family: 'Cormorant Garamond', serif;
+            text-align: center;
+            font-size: 35px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            color: var(--deep);
+            margin: 15px 0 8px;
+        }
+
+        #gift-list-fullscreen .gl-subtitle {
+            text-align: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 19px;
+            color: #a18b84;
+            margin-bottom: 42px;
+        }
+
+        #gift-list-fullscreen .gl-list-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 17px;
+            font-size: 9px;
+            letter-spacing: 3px;
+            color: var(--rose);
+        }
+
+        #gift-list-fullscreen .gl-list-title::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, var(--champagne), transparent);
+        }
+
+        #gift-list-fullscreen .gl-gift-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        #gift-list-fullscreen .gl-gift {
+            position: relative;
+            display: flex;
+            align-items: center;
+            min-height: 70px;
+            padding: 17px 24px;
+            background: linear-gradient(110deg, #f8f0ec, #fffdfa 85%);
+            border: 1px solid #eee3dc;
+            border-left: 2px solid var(--champagne);
+            transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+            animation: appear .8s ease both;
+        }
+
+        #gift-list-fullscreen .gl-gift:hover {
+            transform: translateX(5px);
+            border-left-color: var(--rose);
+            box-shadow: 0 7px 20px #80545b12;
+        }
+
+        #gift-list-fullscreen .gl-gift-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 23px;
+            font-weight: 500;
+            letter-spacing: .3px;
+            color: var(--ink);
+            text-align: left;
+        }
+
+        #gift-list-fullscreen .gl-gift::after {
+            content: "✧";
+            position: absolute;
+            right: 20px;
+            color: var(--champagne);
+            font-size: 13px;
+        }
+
+        @keyframes appear {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #gift-list-fullscreen .gl-signature {
+            margin: 42px auto 0;
+            text-align: center;
+            color: var(--deep);
+        }
+
+        #gift-list-fullscreen .gl-signature-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 18px;
+            color: #a18b84;
+        }
+
+        #gift-list-fullscreen .gl-signature-name {
+            display: block;
+            font-family: 'Parisienne', cursive;
+            font-size: 38px;
+            color: var(--deep);
+            margin-top: 3px;
+        }
+
+        #gift-list-fullscreen .gl-bottom-flower {
+            text-align: center;
+            color: var(--rose);
+            font-size: 22px;
+            margin-top: 20px;
+            opacity: .8;
+        }
+
+        .gl-voltar-btn {
+            display: block;
+            margin: 30px auto 0;
+            background: transparent;
+            border: 1px solid var(--champagne);
+            color: var(--deep);
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        .gl-voltar-btn:hover {
+            background: var(--champagne);
+            color: white;
+        }
+
+        @media(max-width: 480px) {
+            #gift-list-fullscreen { padding: 18px 10px; }
+            #gift-list-fullscreen .gl-container { padding: 55px 23px 40px; }
+            #gift-list-fullscreen .gl-name { font-size: 54px; }
+            #gift-list-fullscreen h2 { font-size: 28px; letter-spacing: 2px; }
+            #gift-list-fullscreen .gl-subtitle { font-size: 17px; }
+            #gift-list-fullscreen .gl-gift { min-height: 64px; padding: 14px 17px; }
+            #gift-list-fullscreen .gl-gift-name { font-size: 21px; }
+            #gift-list-fullscreen .gl-corner { font-size: 25px; }
+        }
+
+        @media(prefers-reduced-motion: reduce) {
+            #gift-list-fullscreen *, #gift-list-fullscreen *::before, #gift-list-fullscreen *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -491,13 +799,52 @@
                     <button onclick="copyPixCode(); fecharModalPresentes()" class="btn btn-solid flex-1 mb-0">
                         <i class="ph ph-pix-logo text-xl"></i> Pix
                     </button>
-                    <button onclick="abrirLista(); fecharModalPresentes()" class="btn btn-outline flex-1 mb-0">
+                    <button onclick="abrirLista();" class="btn btn-outline flex-1 mb-0">
                         <i class="ph ph-gift text-xl"></i> Lista Virtual
                     </button>
                     <button onclick="fecharModalPresentes()" class="btn btn-outline flex-1 mb-0 mt-2" style="padding: 12px; font-size: 0.75rem; border-color: var(--color-silver-light); color: var(--color-silver-dark);">
                         Voltar
                     </button>
                 </div>
+            </div>
+        </div>
+
+        <!-- TELA CHEIA: LISTA VIRTUAL -->
+        <div id="gift-list-fullscreen">
+            <div id="petals"></div>
+            
+            <div class="gl-container">
+                <span class="gl-corner gl-top-left">❀</span>
+                <span class="gl-corner gl-top-right">❀</span>
+                <span class="gl-corner gl-bottom-left">❀</span>
+                <span class="gl-corner gl-bottom-right">❀</span>
+
+                <div class="gl-eyebrow">UMA CELEBRAÇÃO ESPECIAL</div>
+
+                <h1 class="gl-name">Laura Vituri</h1>
+
+                <div class="gl-ornament">❀ &nbsp; ✦ &nbsp; ❀</div>
+
+                <div class="gl-divider">✧</div>
+
+                <h2>LISTA DE PRESENTES</h2>
+
+                <div class="gl-subtitle">Sugestões escolhidas com carinho</div>
+
+                <div class="gl-list-title">SUGESTÕES</div>
+
+                <div class="gl-gift-list" id="gl-gift-list-container"></div>
+
+                <div class="gl-divider">✧</div>
+
+                <div class="gl-signature">
+                    <span class="gl-signature-label">Com carinho,</span>
+                    <span class="gl-signature-name">Laura ♡</span>
+                </div>
+
+                <div class="gl-bottom-flower">❀</div>
+                
+                <button onclick="fecharLista()" class="gl-voltar-btn">Voltar para o Convite</button>
             </div>
         </div>
 
@@ -509,6 +856,7 @@
         const envelopeLayer = document.getElementById('envelope-layer');
         const modalConfirmacao = document.getElementById('confirm-modal');
         const modalPresentes = document.getElementById('gift-modal');
+        const listFullscreen = document.getElementById('gift-list-fullscreen');
         const inputNome = document.getElementById('guest-name');
 
         envelopeLayer.addEventListener('click', () => {
@@ -543,7 +891,6 @@
             document.getElementById("cd-seconds").innerText = segundos.toString().padStart(2, '0');
         }, 1000);
 
-        /* Funções de Modal */
         function abrirModalConfirmacao() {
             modalConfirmacao.classList.add('show');
             inputNome.value = ''; 
@@ -560,6 +907,17 @@
 
         function fecharModalPresentes() {
             modalPresentes.classList.remove('show');
+        }
+
+        function abrirLista() {
+            fecharModalPresentes();
+            listFullscreen.classList.add('show');
+            document.body.style.overflowY = 'hidden'; // Trava rolagem do convite por trás
+        }
+
+        function fecharLista() {
+            listFullscreen.classList.remove('show');
+            document.body.style.overflowY = 'auto'; // Retorna a rolagem pro convite
         }
 
         function enviarWhatsApp() {
@@ -596,10 +954,6 @@
             document.body.removeChild(tempInput);
         }
 
-        function abrirLista() {
-            showToast("Aguardando link da Lista de Presentes...");
-        }
-
         function showToast(message) {
             const toast = document.getElementById("toast");
             toast.innerText = message;
@@ -608,6 +962,77 @@
                 toast.classList.remove("show");
             }, 3000);
         }
+
+        /* LÓGICA DA LISTA VIRTUAL DE PRESENTES (CÓDIGO ADICIONADO) */
+        const presentes = [
+            "Jogo de taças",
+            "Aparelho de jantar",
+            "Jogo de cama",
+            "Toalhas de banho",
+            "Eletroportátil",
+            "Perfume",
+            "Vale-presente",
+            "Uma surpresa especial"
+        ];
+
+        const listaContainer = document.getElementById("gl-gift-list-container");
+
+        presentes.forEach((presente, index) => {
+            const item = document.createElement("div");
+            item.className = "gl-gift";
+            item.style.animationDelay = `${index * 0.09}s`;
+
+            const nome = document.createElement("span");
+            nome.className = "gl-gift-name";
+            nome.textContent = presente;
+
+            item.appendChild(nome);
+            listaContainer.appendChild(item);
+        });
+
+        /* PÉTALAS FLUTUANTES (Escopadas à Lista de Presentes) */
+        const flowers = ["✿", "❀", "✧", "❋"];
+        const petalsContainer = document.getElementById("petals");
+
+        function createPetal() {
+            if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+            const petal = document.createElement("span");
+            petal.className = "petal";
+
+            petal.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+            petal.style.left = Math.random() * 100 + "vw";
+            petal.style.fontSize = (12 + Math.random() * 12) + "px";
+            petal.style.animationDuration = (10 + Math.random() * 9) + "s";
+
+            petalsContainer.appendChild(petal);
+
+            setTimeout(() => { petal.remove(); }, 20000);
+        }
+
+        for (let i = 0; i < 9; i++) {
+            setTimeout(createPetal, i * 900);
+        }
+        setInterval(createPetal, 1800);
+
+        /* BRILHOS DECORATIVOS (Escopados à Lista de Presentes) */
+        function createSparkle() {
+            if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+            const sparkle = document.createElement("span");
+            sparkle.className = "gift-sparkle";
+            sparkle.textContent = "✧";
+
+            sparkle.style.left = Math.random() * 95 + "vw";
+            sparkle.style.top = Math.random() * 95 + "vh";
+            sparkle.style.fontSize = (9 + Math.random() * 9) + "px";
+
+            listFullscreen.appendChild(sparkle);
+
+            setTimeout(() => sparkle.remove(), 4500);
+        }
+
+        setInterval(createSparkle, 1200);
     </script>
 </body>
 </html>
