@@ -8,7 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Adicionadas fontes Playfair Display (Luxo/Destaques) e Lora (Leitura Elegante) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <style>
@@ -19,18 +20,19 @@
             --color-silver-light: #a0a0a0;
             --color-silver-dark: #666666;
             
-            --font-serif: 'Cinzel', serif;
-            --font-script: 'Great Vibes', cursive;
-            --font-sans: 'Montserrat', sans-serif;
+            --font-serif: 'Cinzel', serif; /* Apenas para o Nome */
+            --font-display: 'Playfair Display', serif; /* Frase e Títulos */
+            --font-body: 'Lora', serif; /* Textos e Legibilidade */
         }
 
         body {
             margin: 0;
             padding: 0;
-            font-family: var(--font-sans);
+            font-family: var(--font-body);
             background-color: #e8e8e8;
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
+            color: #333;
         }
 
         #app {
@@ -148,13 +150,16 @@
             z-index: 10;
         }
 
+        /* FRASE MUITO MAIS DESTACADA E LUXUOSA */
         .quote {
-            font-family: var(--font-script);
-            font-size: 1.8rem;
-            color: var(--color-silver-light);
-            line-height: 1.3;
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: 1.4rem;
+            color: #4a3b3d; /* Tom escuro elegante */
+            line-height: 1.45;
             margin-bottom: 1.5rem;
-            text-shadow: 1px 1px 0px #fff;
+            font-weight: 600;
+            padding: 0 0.5rem;
         }
 
         /* =========================================
@@ -212,55 +217,58 @@
         .is-open + .card-container .fade-fill { animation: fadeIn 2s ease-in-out forwards 4.0s; }
         @keyframes fadeIn { to { opacity: 1; } }
 
-        /* Estilização Geral e Contagem Regressiva */
+        /* Estilização Geral */
         .divider { width: 1px; height: 40px; background-color: var(--color-pink-mid); margin: 0 auto 1.5rem auto; }
         .divider-horizontal { height: 1px; width: 100px; background-color: var(--color-silver-light); margin: 1.5rem auto; opacity: 0.5; }
 
-        .details-text { font-size: 0.9rem; color: #555; line-height: 1.6; margin-bottom: 0.5rem; }
-        .details-text strong { font-weight: 600; color: var(--color-pink-dark); font-size: 1rem; letter-spacing: 1px; display: block; margin-bottom: 0.2rem; }
+        .details-text { font-size: 0.95rem; color: #444; line-height: 1.6; margin-bottom: 0.5rem; }
+        .details-text strong { font-family: var(--font-display); font-weight: 700; color: var(--color-pink-dark); font-size: 1.15rem; letter-spacing: 1px; display: block; margin-bottom: 0.4rem; text-transform: uppercase; }
 
-        /* Contagem Regressiva Top */
+        /* =========================================
+           CONTAGEM REGRESSIVA BEM DESTACADA
+           ========================================= */
         .countdown-wrapper {
             display: flex;
             justify-content: center;
             gap: 12px;
-            margin: 1.2rem 0;
+            margin: 1.8rem 0;
         }
         .time-box {
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid var(--color-pink-mid);
-            border-radius: 8px;
-            padding: 10px 0;
-            width: 65px;
-            box-shadow: 0 4px 15px rgba(209, 155, 163, 0.15);
-            backdrop-filter: blur(4px);
+            background: linear-gradient(135deg, var(--color-pink-mid), var(--color-pink-dark));
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 10px;
+            padding: 14px 0;
+            width: 72px;
+            box-shadow: 0 10px 25px rgba(181, 131, 138, 0.45);
         }
         .time-number {
             display: block;
-            font-family: var(--font-serif);
-            font-size: 1.4rem;
-            color: var(--color-pink-dark);
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: #ffffff;
             font-weight: 700;
             line-height: 1;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
         }
         .time-label {
             display: block;
+            font-family: var(--font-body);
             font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--color-silver-dark);
-            margin-top: 4px;
+            letter-spacing: 1.5px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 6px;
         }
 
-        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px 20px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; text-decoration: none; cursor: pointer; margin-bottom: 12px; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px 20px; border-radius: 8px; font-family: var(--font-body); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; text-decoration: none; cursor: pointer; margin-bottom: 12px; }
         .btn-outline { border: 1.5px solid var(--color-pink-mid); color: var(--color-pink-dark); background-color: transparent; }
         .btn-outline:hover { background-color: var(--color-pink-soft); transform: translateY(-2px); }
-        .btn-solid { background-color: var(--color-pink-mid); color: white; border: 1.5px solid var(--color-pink-mid); box-shadow: 0 4px 15px rgba(209, 155, 163, 0.3); }
+        .btn-solid { background-color: var(--color-pink-mid); color: white; border: 1.5px solid var(--color-pink-mid); box-shadow: 0 6px 20px rgba(209, 155, 163, 0.35); }
         .btn-solid:hover { background-color: var(--color-pink-dark); transform: translateY(-2px); }
-        .btn-dark { background-color: var(--color-silver-dark); color: white; border: 1.5px solid var(--color-silver-dark); box-shadow: 0 4px 15px rgba(102, 102, 102, 0.3); }
+        .btn-dark { background-color: var(--color-silver-dark); color: white; border: 1.5px solid var(--color-silver-dark); box-shadow: 0 6px 20px rgba(102, 102, 102, 0.3); }
         .btn-dark:hover { background-color: #444; transform: translateY(-2px); }
         
-        .btn-small { padding: 8px 16px; font-size: 0.75rem; width: auto; margin-top: 0.5rem; }
+        .btn-small { padding: 10px 16px; font-size: 0.75rem; width: auto; margin-top: 0.5rem; }
 
         /* =========================================
            MODAL DE CONFIRMAÇÃO
@@ -268,9 +276,9 @@
         #confirm-modal {
             position: fixed;
             inset: 0;
-            background-color: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             z-index: 100;
             display: flex;
             align-items: center;
@@ -285,24 +293,24 @@
             background-color: var(--color-pink-soft);
             width: 90%;
             max-width: 380px;
-            padding: 2rem 1.5rem;
+            padding: 2.5rem 1.5rem;
             border-radius: 12px;
             border: 1px solid #fff;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
             text-align: center;
             transform: translateY(20px) scale(0.95);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         #confirm-modal.show .modal-card { transform: translateY(0) scale(1); }
 
-        .modal-title { font-family: var(--font-serif); font-size: 1.5rem; color: var(--color-silver-dark); margin-bottom: 0.5rem; }
-        .modal-text { font-size: 0.9rem; color: #555; margin-bottom: 1.5rem; line-height: 1.5; }
+        .modal-title { font-family: var(--font-display); font-size: 1.7rem; color: var(--color-silver-dark); margin-bottom: 0.5rem; font-weight: 700;}
+        .modal-text { font-size: 0.95rem; color: #555; margin-bottom: 1.8rem; line-height: 1.5; }
 
-        .input-elegant { width: 100%; padding: 14px 16px; border: 1px solid var(--color-pink-mid); border-radius: 8px; background: rgba(255, 255, 255, 0.7); font-family: var(--font-sans); font-size: 0.95rem; color: #444; outline: none; transition: all 0.3s ease; margin-bottom: 1.5rem; box-sizing: border-box; text-align: center; }
+        .input-elegant { width: 100%; padding: 14px 16px; border: 1px solid var(--color-pink-mid); border-radius: 8px; background: rgba(255, 255, 255, 0.8); font-family: var(--font-body); font-size: 1rem; color: #333; outline: none; transition: all 0.3s ease; margin-bottom: 1.5rem; box-sizing: border-box; text-align: center; }
         .input-elegant:focus { border-color: var(--color-pink-dark); background: #fff; box-shadow: 0 0 0 3px rgba(209, 155, 163, 0.2); }
-        .input-elegant::placeholder { color: #aaa; font-weight: 300; }
+        .input-elegant::placeholder { color: #999; font-style: italic; }
 
-        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background-color: rgba(50, 50, 50, 0.9); color: white; padding: 12px 24px; border-radius: 30px; font-size: 0.85rem; font-weight: 500; z-index: 200; opacity: 0; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); box-shadow: 0 10px 30px rgba(0,0,0,0.2); white-space: nowrap; }
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background-color: rgba(50, 50, 50, 0.95); color: white; padding: 14px 28px; border-radius: 30px; font-size: 0.9rem; font-weight: 500; z-index: 200; opacity: 0; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); box-shadow: 0 10px 30px rgba(0,0,0,0.25); white-space: nowrap; font-family: var(--font-body); }
         #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
     </style>
 </head>
@@ -324,6 +332,8 @@
             <div class="sparkle s4"></div>
 
             <div class="content-layer">
+                
+                <!-- FRASE DESTACADA -->
                 <p class="quote">"Entre tudo o que já vivi e tudo o que ainda sonho viver, existe uma noite que merece ser lembrada para sempre."</p>
                 
                 <div class="name-wrapper">
@@ -387,11 +397,11 @@
 
                 <div class="mb-8">
                     <p class="details-text mb-2">
-                        <strong>DATA & HORA</strong>
+                        <strong>Data & Hora</strong>
                         02 de Janeiro de 2027 às 20h00
                     </p>
                     
-                    <!-- CONTAGEM REGRESSIVA -->
+                    <!-- CONTAGEM REGRESSIVA BEM DESTACADA -->
                     <div class="countdown-wrapper">
                         <div class="time-box">
                             <span class="time-number" id="cd-days">00</span>
@@ -417,46 +427,50 @@
                     </a>
                 </div>
 
-                <div class="mb-6">
+                <div class="mb-8">
                     <p class="details-text">
-                        <strong>LOCAL</strong>
+                        <strong>Local da Recepção</strong>
                         Sato Buffet<br>
-                        <span class="text-xs text-gray-500 mt-1 block">R. Maestro Erlon Chaves, 465<br>Jardim Samambaia, Jales - SP</span>
+                        <span class="text-sm text-gray-500 mt-1 block">R. Maestro Erlon Chaves, 465<br>Jardim Samambaia, Jales - SP</span>
                     </p>
                     <a href="https://maps.google.com/?q=R.+Maestro+Erlon+Chaves,+465+-+Jardim+Samambaia,+Jales+-+SP,+15704-046" target="_blank" rel="noopener noreferrer" class="btn btn-outline mt-3">
                         <i class="ph ph-map-pin text-lg"></i> Ver no Mapa
                     </a>
                 </div>
 
-                <div class="divider-horizontal"></div>
-
-                <div class="mb-6">
-                    <p class="details-text">
-                        <strong>TRAJE ESPORTE FINO</strong>
-                        <span class="block text-[0.8rem] text-gray-500 mt-1 mb-3 italic">Para mantermos a elegância da nossa noite.</span>
-                        <span class="block text-[0.85rem] text-gray-600 mb-1">👨🏻 <b>Homens:</b> Calça social/sarja e camisa (blazer opcional).</span>
-                        <span class="block text-[0.85rem] text-gray-600">👩🏻 <b>Mulheres:</b> Vestidos midi, pantalonas ou conjuntos sofisticados.</span>
+                <!-- DRESS CODE DESTACADO (NOVO CARTÃO) -->
+                <div class="bg-gradient-to-br from-white/95 to-white/70 p-6 rounded-xl border border-pink-200 mb-8 shadow-md relative overflow-hidden">
+                    <p class="details-text relative z-10 text-left m-0">
+                        <strong class="text-center block mb-1">Traje Esporte Fino</strong>
+                        <span class="block text-[0.85rem] text-gray-500 mb-4 italic text-center">Para mantermos a elegância da nossa noite.</span>
+                        
+                        <span class="block text-[0.95rem] text-gray-700 mb-3 border-b border-gray-200 pb-3">
+                            <i class="ph-fill ph-user text-pink-dark mr-1"></i> <b>Homens:</b><br>Calça social/sarja e camisa (blazer opcional).
+                        </span>
+                        <span class="block text-[0.95rem] text-gray-700 pt-1">
+                            <i class="ph-fill ph-sparkle text-pink-dark mr-1"></i> <b>Mulheres:</b><br>Vestidos midi, pantalonas ou conjuntos sofisticados.
+                        </span>
                     </p>
                 </div>
 
                 <div class="bg-white/50 p-5 rounded-xl border border-white/60 mb-6 shadow-sm">
-                    <p class="details-text mb-4" style="font-size: 0.8rem;">
-                        <strong>SUGESTÃO DE PRESENTE</strong>
+                    <p class="details-text mb-4" style="font-size: 0.85rem;">
+                        <strong>Sugestão de Presente</strong>
                         A sua presença é o meu maior presente! Como muitos perguntaram, disponibilizo abaixo as opções para quem desejar me agraciar com algo a mais.
                     </p>
                     
                     <div class="flex flex-col sm:flex-row gap-2">
                         <button onclick="copyPixCode()" class="btn btn-solid flex-1 mb-0">
-                            <i class="ph ph-pix-logo text-lg"></i> Pix
+                            <i class="ph ph-pix-logo text-xl"></i> Pix
                         </button>
                         <button onclick="abrirLista()" class="btn btn-outline flex-1 mb-0">
-                            <i class="ph ph-gift text-lg"></i> Lista Virtual
+                            <i class="ph ph-gift text-xl"></i> Lista Virtual
                         </button>
                     </div>
                 </div>
 
-                <button onclick="abrirModalConfirmacao()" class="btn btn-dark" style="margin-top: 10px;">
-                    <i class="ph ph-whatsapp-logo text-lg"></i> Confirmar Presença
+                <button onclick="abrirModalConfirmacao()" class="btn btn-dark" style="margin-top: 15px;">
+                    <i class="ph ph-whatsapp-logo text-xl"></i> Confirmar Presença
                 </button>
 
             </div>
@@ -468,13 +482,13 @@
                 <h2 class="modal-title">Confirmação</h2>
                 <p class="modal-text">Por favor, informe seu nome e sobrenome.</p>
                 
-                <input type="text" id="guest-name" class="input-elegant" placeholder="Digite seu nome..." autocomplete="off">
+                <input type="text" id="guest-name" class="input-elegant" placeholder="Ex: Maria Silva" autocomplete="off">
                 
-                <div class="flex gap-2">
-                    <button onclick="fecharModalConfirmacao()" class="btn btn-outline flex-1 mb-0" style="padding: 10px; font-size: 0.75rem;">
+                <div class="flex gap-3">
+                    <button onclick="fecharModalConfirmacao()" class="btn btn-outline flex-1 mb-0" style="padding: 12px; font-size: 0.75rem;">
                         Cancelar
                     </button>
-                    <button onclick="enviarWhatsApp()" class="btn btn-solid flex-1 mb-0" style="padding: 10px; font-size: 0.75rem;">
+                    <button onclick="enviarWhatsApp()" class="btn btn-solid flex-1 mb-0" style="padding: 12px; font-size: 0.75rem;">
                         Enviar 
                     </button>
                 </div>
@@ -544,7 +558,7 @@
             }
 
             const textoMensagem = `Olá! Que alegria poder fazer parte desse momento. Confirmo minha presença no aniversário da Laura! ✨🥂\n\n*Nome:* ${nome}`;
-            const numeroWhatsApp = "5519993405480"; // Coloque o número real aqui
+            const numeroWhatsApp = "5511999999999"; // Coloque o número real aqui
             
             const linkWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(textoMensagem)}`;
             
