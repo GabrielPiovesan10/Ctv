@@ -912,12 +912,12 @@
         function abrirLista() {
             fecharModalPresentes();
             listFullscreen.classList.add('show');
-            document.body.style.overflowY = 'hidden'; // Trava rolagem do convite por trás
+            document.body.style.overflowY = 'hidden'; 
         }
 
         function fecharLista() {
             listFullscreen.classList.remove('show');
-            document.body.style.overflowY = 'auto'; // Retorna a rolagem pro convite
+            document.body.style.overflowY = 'auto'; 
         }
 
         function enviarWhatsApp() {
@@ -929,10 +929,12 @@
                 return;
             }
 
-            const textoMensagem = `Olá! Que alegria poder fazer parte desse momento. Confirmo minha presença no aniversário da Laura! ✨🥂\n\n*Nome:* ${nome}`;
-            const numeroWhatsApp = "5511999999999"; 
+            // Usando Unicode escapes para evitar problemas de renderização no Android
+            const textoMensagem = `Olá! Que alegria poder fazer parte desse momento. Confirmo minha presença no aniversário da Laura! \u2728\ud83e\udd42\n\n*Nome:* ${nome}`;
+            const numeroWhatsApp = "5519993405480"; 
             
-            const linkWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(textoMensagem)}`;
+            // Usando api.whatsapp.com em vez de wa.me
+            const linkWhatsApp = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(textoMensagem)}`;
             
             window.open(linkWhatsApp, '_blank');
             fecharModalConfirmacao();
@@ -963,7 +965,7 @@
             }, 3000);
         }
 
-        /* LÓGICA DA LISTA VIRTUAL DE PRESENTES (CÓDIGO ADICIONADO) */
+        /* LÓGICA DA LISTA VIRTUAL DE PRESENTES */
         const presentes = [
             "Jogo de taças",
             "Aparelho de jantar",
