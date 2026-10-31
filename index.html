@@ -53,7 +53,6 @@
             display: flex;
             transition: visibility 2s;
             cursor: pointer;
-            /* Fundo sólido removido para não bloquear a visão da animação */
         }
 
         .flap {
@@ -256,7 +255,8 @@
         
         .btn-small { padding: 10px 16px; font-size: 0.75rem; width: auto; margin-top: 0.5rem; }
 
-        #confirm-modal {
+        /* MODAIS REAPROVEITADOS */
+        #confirm-modal, #gift-modal {
             position: fixed;
             inset: 0;
             background-color: rgba(0, 0, 0, 0.5);
@@ -270,7 +270,7 @@
             opacity: 0;
             transition: all 0.3s ease;
         }
-        #confirm-modal.show { visibility: visible; opacity: 1; }
+        #confirm-modal.show, #gift-modal.show { visibility: visible; opacity: 1; }
 
         .modal-card {
             background-color: var(--color-pink-soft);
@@ -284,7 +284,7 @@
             transform: translateY(20px) scale(0.95);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        #confirm-modal.show .modal-card { transform: translateY(0) scale(1); }
+        #confirm-modal.show .modal-card, #gift-modal.show .modal-card { transform: translateY(0) scale(1); }
 
         .modal-title { font-family: var(--font-display); font-size: 1.7rem; color: var(--color-silver-dark); margin-bottom: 0.5rem; font-weight: 700;}
         .modal-text { font-size: 0.95rem; color: #555; margin-bottom: 1.8rem; line-height: 1.5; }
@@ -446,18 +446,13 @@
 
                 <div class="bg-white/40 p-6 rounded-xl border border-white/60 mb-8 shadow-sm">
                     <p class="details-text mb-5" style="font-size: 0.9rem;">
-                        <strong>Sugestão de Presente</strong>
-                        A sua presença é o meu maior presente! Como muitos perguntaram, disponibilizo abaixo as opções para quem desejar me agraciar com algo a mais.
+                        <strong>Sugestões de Presente</strong>
+                        A sua presença é, sem dúvida, o meu presente mais valioso! No entanto, para aqueles que carinhosamente desejam me agraciar com uma lembrança, preparei algumas opções especiais.
                     </p>
                     
-                    <div class="flex flex-col sm:flex-row gap-3">
-                        <button onclick="copyPixCode()" class="btn btn-solid flex-1 mb-0">
-                            <i class="ph ph-pix-logo text-xl"></i> Pix
-                        </button>
-                        <button onclick="abrirLista()" class="btn btn-outline flex-1 mb-0">
-                            <i class="ph ph-gift text-xl"></i> Lista Virtual
-                        </button>
-                    </div>
+                    <button onclick="abrirModalPresentes()" class="btn btn-solid w-full mb-0">
+                        <i class="ph ph-gift text-xl"></i> Sugestão de Presentes
+                    </button>
                 </div>
 
                 <button onclick="abrirModalConfirmacao()" class="btn btn-dark mt-2">
@@ -467,6 +462,7 @@
             </div>
         </div>
         
+        <!-- MODAL DE CONFIRMAÇÃO DE PRESENÇA -->
         <div id="confirm-modal">
             <div class="modal-card">
                 <h2 class="modal-title">Confirmação</h2>
@@ -485,6 +481,26 @@
             </div>
         </div>
 
+        <!-- MODAL DE PRESENTES -->
+        <div id="gift-modal">
+            <div class="modal-card">
+                <h2 class="modal-title">Presentes</h2>
+                <p class="modal-text">Fique à vontade para escolher a opção mais conveniente. Agradeço de coração pelo carinho!</p>
+                
+                <div class="flex flex-col gap-3">
+                    <button onclick="copyPixCode(); fecharModalPresentes()" class="btn btn-solid flex-1 mb-0">
+                        <i class="ph ph-pix-logo text-xl"></i> Pix
+                    </button>
+                    <button onclick="abrirLista(); fecharModalPresentes()" class="btn btn-outline flex-1 mb-0">
+                        <i class="ph ph-gift text-xl"></i> Lista Virtual
+                    </button>
+                    <button onclick="fecharModalPresentes()" class="btn btn-outline flex-1 mb-0 mt-2" style="padding: 12px; font-size: 0.75rem; border-color: var(--color-silver-light); color: var(--color-silver-dark);">
+                        Voltar
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <div id="toast">Notificação aqui</div>
 
     </div>
@@ -492,6 +508,7 @@
     <script>
         const envelopeLayer = document.getElementById('envelope-layer');
         const modalConfirmacao = document.getElementById('confirm-modal');
+        const modalPresentes = document.getElementById('gift-modal');
         const inputNome = document.getElementById('guest-name');
 
         envelopeLayer.addEventListener('click', () => {
@@ -526,6 +543,7 @@
             document.getElementById("cd-seconds").innerText = segundos.toString().padStart(2, '0');
         }, 1000);
 
+        /* Funções de Modal */
         function abrirModalConfirmacao() {
             modalConfirmacao.classList.add('show');
             inputNome.value = ''; 
@@ -534,6 +552,14 @@
 
         function fecharModalConfirmacao() {
             modalConfirmacao.classList.remove('show');
+        }
+        
+        function abrirModalPresentes() {
+            modalPresentes.classList.add('show');
+        }
+
+        function fecharModalPresentes() {
+            modalPresentes.classList.remove('show');
         }
 
         function enviarWhatsApp() {
