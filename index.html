@@ -28,7 +28,7 @@
             margin: 0;
             padding: 0;
             font-family: var(--font-body);
-            background-color: var(--color-pink-soft); /* Fundo da tela igual ao convite */
+            background-color: var(--color-pink-soft);
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
             color: #333;
@@ -39,7 +39,7 @@
             width: 100vw;
             min-height: 100vh;
             display: flex;
-            align-items: flex-start; /* Alinhamento do topo para o scroll natural */
+            align-items: flex-start;
             justify-content: center;
         }
 
@@ -53,7 +53,7 @@
             display: flex;
             transition: visibility 2s;
             cursor: pointer;
-            background-color: var(--color-pink-soft);
+            /* Fundo sólido removido para não bloquear a visão da animação */
         }
 
         .flap {
@@ -90,10 +90,9 @@
             transition-delay: 1.5s;
         }
 
-        /* FORMATO TELA INTEIRA (Sem bordas, sem caixa flutuante) */
         .card-container {
             width: 100%;
-            max-width: 650px; /* Mantém a leitura agradável no PC, mas é 100% no celular */
+            max-width: 650px; 
             position: relative;
             overflow: hidden;
             padding: 3rem 1.5rem 5rem 1.5rem;
@@ -110,7 +109,6 @@
             transform: translateY(0);
         }
 
-        /* Efeito mágico de fundo */
         .watercolor-corner {
             position: absolute;
             width: 300px;
@@ -146,7 +144,6 @@
             z-index: 10;
         }
 
-        /* FRASE DESTACADA */
         .quote {
             font-family: var(--font-display);
             font-style: italic;
@@ -158,7 +155,6 @@
             padding: 0 0.5rem;
         }
 
-        /* NOME E MOLDURA VETORIAL */
         .name-wrapper {
             position: relative;
             width: 100%;
@@ -211,14 +207,12 @@
         .is-open + .card-container .fade-fill { animation: fadeIn 2s ease-in-out forwards 4.0s; }
         @keyframes fadeIn { to { opacity: 1; } }
 
-        /* Estilização Geral */
         .divider { width: 1px; height: 50px; background-color: var(--color-pink-mid); margin: 0 auto 2rem auto; }
         .divider-horizontal { height: 1px; width: 100px; background-color: var(--color-silver-light); margin: 2rem auto; opacity: 0.5; }
 
         .details-text { font-size: 0.95rem; color: #444; line-height: 1.6; margin-bottom: 0.5rem; }
         .details-text strong { font-family: var(--font-display); font-weight: 700; color: var(--color-pink-dark); font-size: 1.2rem; letter-spacing: 1px; display: block; margin-bottom: 0.4rem; text-transform: uppercase; }
 
-        /* CONTAGEM REGRESSIVA */
         .countdown-wrapper {
             display: flex;
             justify-content: center;
@@ -262,7 +256,6 @@
         
         .btn-small { padding: 10px 16px; font-size: 0.75rem; width: auto; margin-top: 0.5rem; }
 
-        /* MODAL DE CONFIRMAÇÃO */
         #confirm-modal {
             position: fixed;
             inset: 0;
@@ -425,7 +418,6 @@
                     </a>
                 </div>
 
-                <!-- DRESS CODE ATUALIZADO E DESTACADO -->
                 <div class="bg-gradient-to-br from-white/90 to-white/60 p-7 rounded-xl border border-pink-200 mb-10 shadow-sm relative overflow-hidden">
                     <p class="details-text relative z-10 text-left m-0">
                         <strong class="text-center block mb-4">Traje Esporte Fino</strong>
@@ -475,7 +467,6 @@
             </div>
         </div>
         
-        <!-- MODAL DE CONFIRMAÇÃO DE PRESENÇA -->
         <div id="confirm-modal">
             <div class="modal-card">
                 <h2 class="modal-title">Confirmação</h2>
@@ -512,7 +503,6 @@
             document.body.style.overflowY = 'hidden';
         }
 
-        /* Lógica da Contagem Regressiva */
         const dataFesta = new Date("Jan 02, 2027 20:00:00").getTime();
         
         const countdownTimer = setInterval(() => {
@@ -536,7 +526,6 @@
             document.getElementById("cd-seconds").innerText = segundos.toString().padStart(2, '0');
         }, 1000);
 
-        /* Funções do Modal de Confirmação */
         function abrirModalConfirmacao() {
             modalConfirmacao.classList.add('show');
             inputNome.value = ''; 
@@ -557,7 +546,7 @@
             }
 
             const textoMensagem = `Olá! Que alegria poder fazer parte desse momento. Confirmo minha presença no aniversário da Laura! ✨🥂\n\n*Nome:* ${nome}`;
-            const numeroWhatsApp = "5511999999999"; // Coloque o número real aqui
+            const numeroWhatsApp = "5511999999999"; 
             
             const linkWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(textoMensagem)}`;
             
@@ -565,7 +554,6 @@
             fecharModalConfirmacao();
         }
 
-        /* Funções de Presente e Utilidades */
         function copyPixCode() {
             const pixKey = "laura.vituri@email.com"; 
             const tempInput = document.createElement("input");
