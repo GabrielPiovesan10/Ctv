@@ -8,7 +8,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Adicionadas fontes Playfair Display (Luxo/Destaques) e Lora (Leitura Elegante) -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
@@ -20,16 +19,16 @@
             --color-silver-light: #a0a0a0;
             --color-silver-dark: #666666;
             
-            --font-serif: 'Cinzel', serif; /* Apenas para o Nome */
-            --font-display: 'Playfair Display', serif; /* Frase e Títulos */
-            --font-body: 'Lora', serif; /* Textos e Legibilidade */
+            --font-serif: 'Cinzel', serif;
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Lora', serif;
         }
 
         body {
             margin: 0;
             padding: 0;
             font-family: var(--font-body);
-            background-color: #e8e8e8;
+            background-color: var(--color-pink-soft); /* Fundo da tela igual ao convite */
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
             color: #333;
@@ -40,9 +39,8 @@
             width: 100vw;
             min-height: 100vh;
             display: flex;
-            align-items: center;
+            align-items: flex-start; /* Alinhamento do topo para o scroll natural */
             justify-content: center;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d19ba3' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
 
         #envelope-layer {
@@ -55,6 +53,7 @@
             display: flex;
             transition: visibility 2s;
             cursor: pointer;
+            background-color: var(--color-pink-soft);
         }
 
         .flap {
@@ -91,42 +90,39 @@
             transition-delay: 1.5s;
         }
 
+        /* FORMATO TELA INTEIRA (Sem bordas, sem caixa flutuante) */
         .card-container {
-            width: 92%;
-            max-width: 500px;
-            background-color: var(--color-pink-soft);
-            border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 650px; /* Mantém a leitura agradável no PC, mas é 100% no celular */
             position: relative;
             overflow: hidden;
-            padding: 3rem 1.5rem;
+            padding: 3rem 1.5rem 5rem 1.5rem;
             text-align: center;
-            margin: 2rem 0;
-            border: 1px solid #fff;
+            margin: 0 auto;
             opacity: 0;
-            transform: translateY(20px) scale(0.95);
+            transform: translateY(20px);
             transition: all 1s ease-out;
             transition-delay: 0.5s;
         }
 
         .is-open + .card-container {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translateY(0);
         }
 
         /* Efeito mágico de fundo */
         .watercolor-corner {
             position: absolute;
-            width: 250px;
-            height: 250px;
+            width: 300px;
+            height: 300px;
             background: radial-gradient(circle at center, rgba(209, 155, 163, 0.4) 0%, rgba(209, 155, 163, 0) 70%);
             border-radius: 50%;
-            filter: blur(20px);
+            filter: blur(25px);
             z-index: 0;
             pointer-events: none;
         }
         .corner-tl { top: -100px; left: -100px; }
-        .corner-br { bottom: -100px; right: -100px; }
+        .corner-br { bottom: 10%; right: -100px; }
 
         .sparkle {
             position: absolute;
@@ -150,21 +146,19 @@
             z-index: 10;
         }
 
-        /* FRASE MUITO MAIS DESTACADA E LUXUOSA */
+        /* FRASE DESTACADA */
         .quote {
             font-family: var(--font-display);
             font-style: italic;
             font-size: 1.4rem;
-            color: #4a3b3d; /* Tom escuro elegante */
+            color: #4a3b3d;
             line-height: 1.45;
             margin-bottom: 1.5rem;
             font-weight: 600;
             padding: 0 0.5rem;
         }
 
-        /* =========================================
-           NOME E MOLDURA VETORIAL
-           ========================================= */
+        /* NOME E MOLDURA VETORIAL */
         .name-wrapper {
             position: relative;
             width: 100%;
@@ -218,15 +212,13 @@
         @keyframes fadeIn { to { opacity: 1; } }
 
         /* Estilização Geral */
-        .divider { width: 1px; height: 40px; background-color: var(--color-pink-mid); margin: 0 auto 1.5rem auto; }
-        .divider-horizontal { height: 1px; width: 100px; background-color: var(--color-silver-light); margin: 1.5rem auto; opacity: 0.5; }
+        .divider { width: 1px; height: 50px; background-color: var(--color-pink-mid); margin: 0 auto 2rem auto; }
+        .divider-horizontal { height: 1px; width: 100px; background-color: var(--color-silver-light); margin: 2rem auto; opacity: 0.5; }
 
         .details-text { font-size: 0.95rem; color: #444; line-height: 1.6; margin-bottom: 0.5rem; }
-        .details-text strong { font-family: var(--font-display); font-weight: 700; color: var(--color-pink-dark); font-size: 1.15rem; letter-spacing: 1px; display: block; margin-bottom: 0.4rem; text-transform: uppercase; }
+        .details-text strong { font-family: var(--font-display); font-weight: 700; color: var(--color-pink-dark); font-size: 1.2rem; letter-spacing: 1px; display: block; margin-bottom: 0.4rem; text-transform: uppercase; }
 
-        /* =========================================
-           CONTAGEM REGRESSIVA BEM DESTACADA
-           ========================================= */
+        /* CONTAGEM REGRESSIVA */
         .countdown-wrapper {
             display: flex;
             justify-content: center;
@@ -262,7 +254,7 @@
 
         .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px 20px; border-radius: 8px; font-family: var(--font-body); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; text-decoration: none; cursor: pointer; margin-bottom: 12px; }
         .btn-outline { border: 1.5px solid var(--color-pink-mid); color: var(--color-pink-dark); background-color: transparent; }
-        .btn-outline:hover { background-color: var(--color-pink-soft); transform: translateY(-2px); }
+        .btn-outline:hover { background-color: rgba(209, 155, 163, 0.1); transform: translateY(-2px); }
         .btn-solid { background-color: var(--color-pink-mid); color: white; border: 1.5px solid var(--color-pink-mid); box-shadow: 0 6px 20px rgba(209, 155, 163, 0.35); }
         .btn-solid:hover { background-color: var(--color-pink-dark); transform: translateY(-2px); }
         .btn-dark { background-color: var(--color-silver-dark); color: white; border: 1.5px solid var(--color-silver-dark); box-shadow: 0 6px 20px rgba(102, 102, 102, 0.3); }
@@ -270,9 +262,7 @@
         
         .btn-small { padding: 10px 16px; font-size: 0.75rem; width: auto; margin-top: 0.5rem; }
 
-        /* =========================================
-           MODAL DE CONFIRMAÇÃO
-           ========================================= */
+        /* MODAL DE CONFIRMAÇÃO */
         #confirm-modal {
             position: fixed;
             inset: 0;
@@ -333,7 +323,6 @@
 
             <div class="content-layer">
                 
-                <!-- FRASE DESTACADA -->
                 <p class="quote">"Entre tudo o que já vivi e tudo o que ainda sonho viver, existe uma noite que merece ser lembrada para sempre."</p>
                 
                 <div class="name-wrapper">
@@ -401,7 +390,6 @@
                         02 de Janeiro de 2027 às 20h00
                     </p>
                     
-                    <!-- CONTAGEM REGRESSIVA BEM DESTACADA -->
                     <div class="countdown-wrapper">
                         <div class="time-box">
                             <span class="time-number" id="cd-days">00</span>
@@ -421,13 +409,12 @@
                         </div>
                     </div>
 
-                    <!-- BOTÃO AGENDA -->
                     <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Anivers%C3%A1rio+da+Laura+Vituri&dates=20270102T230000Z/20270103T030000Z&details=A+grande+celebra%C3%A7%C3%A3o+do+anivers%C3%A1rio+da+Laura!&location=Sato+Buffet,+R.+Maestro+Erlon+Chaves,+465+-+Jardim+Samambaia,+Jales+-+SP" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-small">
                         <i class="ph ph-calendar-plus text-lg"></i> Salvar na Agenda
                     </a>
                 </div>
 
-                <div class="mb-8">
+                <div class="mb-10">
                     <p class="details-text">
                         <strong>Local da Recepção</strong>
                         Sato Buffet<br>
@@ -438,28 +425,40 @@
                     </a>
                 </div>
 
-                <!-- DRESS CODE DESTACADO (NOVO CARTÃO) -->
-                <div class="bg-gradient-to-br from-white/95 to-white/70 p-6 rounded-xl border border-pink-200 mb-8 shadow-md relative overflow-hidden">
+                <!-- DRESS CODE ATUALIZADO E DESTACADO -->
+                <div class="bg-gradient-to-br from-white/90 to-white/60 p-7 rounded-xl border border-pink-200 mb-10 shadow-sm relative overflow-hidden">
                     <p class="details-text relative z-10 text-left m-0">
-                        <strong class="text-center block mb-1">Traje Esporte Fino</strong>
-                        <span class="block text-[0.85rem] text-gray-500 mb-4 italic text-center">Para mantermos a elegância da nossa noite.</span>
+                        <strong class="text-center block mb-4">Traje Esporte Fino</strong>
                         
-                        <span class="block text-[0.95rem] text-gray-700 mb-3 border-b border-gray-200 pb-3">
-                            <i class="ph-fill ph-user text-pink-dark mr-1"></i> <b>Homens:</b><br>Calça social/sarja e camisa (blazer opcional).
+                        <span class="block text-[0.95rem] text-gray-700 mb-5 text-center">
+                            Para mantermos a elegância da nossa noite, sugerimos um traje esporte fino, pensado para tornar essa celebração ainda mais especial.
                         </span>
-                        <span class="block text-[0.95rem] text-gray-700 pt-1">
-                            <i class="ph-fill ph-sparkle text-pink-dark mr-1"></i> <b>Mulheres:</b><br>Vestidos midi, pantalonas ou conjuntos sofisticados.
+                        
+                        <span class="block text-[0.95rem] text-gray-700 mb-4 border-b border-gray-200 pb-4">
+                            <i class="ph-fill ph-user text-pink-dark mr-1 text-lg align-text-bottom"></i> <b>Para os homens:</b><br>Calça social ou sarja e camisa. O uso de blazer é opcional.
+                        </span>
+                        
+                        <span class="block text-[0.95rem] text-gray-700 mb-5 border-b border-gray-200 pb-4">
+                            <i class="ph-fill ph-sparkle text-pink-dark mr-1 text-lg align-text-bottom"></i> <b>Para as mulheres:</b><br>Vestidos midi, calças ou conjuntos sofisticados.
+                        </span>
+                        
+                        <span class="block text-[0.95rem] text-gray-700 mb-4 text-center">
+                            A proposta é uma produção elegante e confortável, para que todos possam aproveitar essa noite com muito estilo!
+                        </span>
+                        
+                        <span class="block text-[0.85rem] text-gray-500 italic text-center leading-relaxed">
+                            Lembre-se: as sugestões são apenas uma inspiração. O mais importante é que você se sinta bem e esteja à vontade para celebrar esse momento conosco! 🌸
                         </span>
                     </p>
                 </div>
 
-                <div class="bg-white/50 p-5 rounded-xl border border-white/60 mb-6 shadow-sm">
-                    <p class="details-text mb-4" style="font-size: 0.85rem;">
+                <div class="bg-white/40 p-6 rounded-xl border border-white/60 mb-8 shadow-sm">
+                    <p class="details-text mb-5" style="font-size: 0.9rem;">
                         <strong>Sugestão de Presente</strong>
                         A sua presença é o meu maior presente! Como muitos perguntaram, disponibilizo abaixo as opções para quem desejar me agraciar com algo a mais.
                     </p>
                     
-                    <div class="flex flex-col sm:flex-row gap-2">
+                    <div class="flex flex-col sm:flex-row gap-3">
                         <button onclick="copyPixCode()" class="btn btn-solid flex-1 mb-0">
                             <i class="ph ph-pix-logo text-xl"></i> Pix
                         </button>
@@ -469,7 +468,7 @@
                     </div>
                 </div>
 
-                <button onclick="abrirModalConfirmacao()" class="btn btn-dark" style="margin-top: 15px;">
+                <button onclick="abrirModalConfirmacao()" class="btn btn-dark mt-2">
                     <i class="ph ph-whatsapp-logo text-xl"></i> Confirmar Presença
                 </button>
 
