@@ -155,10 +155,9 @@ button, input {
     transform: translateY(0);
 }
 
+/* AQUARELAS NO FUNDO DO PAPEL */
 .watercolor-corner {
     position: absolute;
-    width: 320px;
-    height: 320px;
     border-radius: 50%;
     filter: blur(28px);
     z-index: 0;
@@ -168,13 +167,26 @@ button, input {
 .corner-tl {
     top: -145px;
     left: -140px;
+    width: 320px;
+    height: 320px;
     background: radial-gradient(circle, rgba(212,155,169,.34), rgba(184,187,196,.2) 48%, transparent 72%);
 }
 
 .corner-br {
     bottom: 5%;
     right: -150px;
+    width: 320px;
+    height: 320px;
     background: radial-gradient(circle, rgba(184,187,196,.24), rgba(212,155,169,.28) 48%, transparent 72%);
+}
+
+.corner-center {
+    top: 22%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba(212,155,169,.22) 0%, rgba(184,187,196,.08) 50%, transparent 75%);
 }
 
 .content-layer {
@@ -281,10 +293,11 @@ button, input {
     background-clip: text;
     color: transparent;
 
+    /* Sombra escurecida para dar o contraste e legibilidade perfeita */
     filter:
-        drop-shadow(0 1px 0 rgba(255,255,255,.95))
-        drop-shadow(0 2px 1px rgba(75,70,80,.35))
-        drop-shadow(0 4px 5px rgba(140,105,120,.2));
+        drop-shadow(0 1px 0 rgba(255,255,255,.4))
+        drop-shadow(0 2px 3px rgba(75,70,80,.5))
+        drop-shadow(0 6px 12px rgba(90,50,70,.45));
 
     animation: metallicShine 12s ease-in-out infinite; 
 }
@@ -317,6 +330,10 @@ button, input {
 .flower-line { stroke-dasharray: 150; stroke-dashoffset: 150; }
 .is-open + .card-container .flower-line { animation: drawFlower 3s cubic-bezier(.4,0,.2,1) forwards; }
 
+/* Aparição suave do fundo rosa na moldura central */
+.frame-bg { opacity: 0; }
+.is-open + .card-container .frame-bg { animation: fadeInBg 2.5s ease-out forwards 0.8s; }
+
 .is-open + .card-container .delay-frame-1 { animation-delay: .8s; }
 .is-open + .card-container .delay-frame-2 { animation-delay: 1.3s; }
 .is-open + .card-container .delay-branch { animation-delay: 1.8s; }
@@ -327,6 +344,7 @@ button, input {
 @keyframes drawFrame { to { stroke-dashoffset: 0; } }
 @keyframes drawPageFrame { to { stroke-dashoffset: 0; } }
 @keyframes drawFlower { to { stroke-dashoffset: 0; } }
+@keyframes fadeInBg { to { opacity: 1; } }
 
 .fade-fill { opacity: 0; }
 .is-open + .card-container .fade-fill { animation: fadeIn 2s ease-in-out forwards 4s; }
@@ -1010,9 +1028,7 @@ button, input {
     <!-- CONVITE PRINCIPAL -->
     <div class="card-container">
         
-        <!-- ===============================================================
-             MOLDURA GLOBAL (DESENHA BEM DEVAGAR) E RAMOS NAS LATERAIS 
-             =============================================================== -->
+        <!-- MOLDURA GLOBAL E RAMOS NAS LATERAIS -->
         <svg class="border-overlay" width="100%" height="100%" style="position:absolute; inset:0; pointer-events:none; z-index:2; overflow:visible;">
             <defs>
                 <linearGradient id="silverStroke" x1="0" y1="0" x2="1" y2="1">
@@ -1054,11 +1070,10 @@ button, input {
                 </g>
             </defs>
 
-            <!-- Moldura inteira do papel - Desenhando bem devagar -->
+            <!-- Moldura inteira do papel -->
             <rect x="12" y="12" width="calc(100% - 24px)" height="calc(100% - 24px)" fill="none" stroke="url(#pinkStroke)" stroke-width="1.5" pathLength="100" class="draw-line page-frame-line delay-frame-1" rx="8"/>
             <rect x="18" y="18" width="calc(100% - 36px)" height="calc(100% - 36px)" fill="none" stroke="url(#silverStroke)" stroke-width="1" opacity="0.65" pathLength="100" class="draw-line page-frame-line delay-frame-2" rx="5"/>
 
-            <!-- Ramo Superior Esquerdo caindo -->
             <svg x="12" y="12" overflow="visible">
                 <path d="M 0,35 C 0,160 45,220 0,380" fill="none" stroke="url(#silverStroke)" stroke-width="1.5" pathLength="100" class="draw-line page-frame-line delay-branch"/>
                 <svg x="12" y="90" overflow="visible"><use href="#sakura-flower" transform="scale(0.85) rotate(30)"/></svg>
@@ -1067,7 +1082,6 @@ button, input {
                 <svg x="-4" y="340" overflow="visible"><use href="#branch-leaf" transform="scale(0.75) rotate(15)"/></svg>
             </svg>
 
-            <!-- Ramo Superior Direito caindo -->
             <svg x="100%" y="12" overflow="visible">
                 <g transform="translate(-12, 0) scale(-1, 1)">
                     <path d="M 0,35 C 0,160 45,220 0,380" fill="none" stroke="url(#silverStroke)" stroke-width="1.5" pathLength="100" class="draw-line page-frame-line delay-branch"/>
@@ -1078,7 +1092,6 @@ button, input {
                 </g>
             </svg>
 
-            <!-- Ramo Inferior Esquerdo subindo -->
             <svg x="12" y="100%" overflow="visible">
                 <g transform="translate(0, -12) scale(1, -1)">
                     <path d="M 0,35 C 0,160 45,220 0,380" fill="none" stroke="url(#silverStroke)" stroke-width="1.5" pathLength="100" class="draw-line page-frame-line delay-branch"/>
@@ -1089,7 +1102,6 @@ button, input {
                 </g>
             </svg>
 
-            <!-- Ramo Inferior Direito subindo -->
             <svg x="100%" y="100%" overflow="visible">
                 <g transform="translate(-12, -12) scale(-1, -1)">
                     <path d="M 0,35 C 0,160 45,220 0,380" fill="none" stroke="url(#silverStroke)" stroke-width="1.5" pathLength="100" class="draw-line page-frame-line delay-branch"/>
@@ -1103,6 +1115,8 @@ button, input {
 
         <div class="watercolor-corner corner-tl"></div>
         <div class="watercolor-corner corner-br"></div>
+        <!-- Nova mancha suave rosada de textura de papel logo atrás do nome -->
+        <div class="watercolor-corner corner-center"></div>
 
         <div class="sparkle s1"></div>
         <div class="sparkle s2"></div>
@@ -1117,11 +1131,10 @@ button, input {
                 "Entre tudo o que já vivi e tudo o que ainda sonho viver, existe uma noite que merece ser lembrada para sempre."
             </p>
 
-            <!-- NOME APENAS COM A MOLDURA DE LINHAS (SEM FLORES INTERNAS) -->
+            <!-- NOME COM A MOLDURA DE LINHAS E O NOVO FUNDO TRANSLÚCIDO -->
             <div class="name-wrapper">
                 <svg class="frame-svg" viewBox="0 0 390 255" xmlns="http://www.w3.org/2000/svg">
                     <defs>
-                        <!-- Os mesmos gradientes necessários para as linhas da moldura central -->
                         <linearGradient id="silverStrokeCenter" x1="0" y1="0" x2="1" y2="1">
                             <stop offset="0" stop-color="#777b87"/>
                             <stop offset=".25" stop-color="#f5f6f8"/>
@@ -1135,8 +1148,21 @@ button, input {
                             <stop offset=".5" stop-color="#a96d7d"/>
                             <stop offset="1" stop-color="#e7c1ca"/>
                         </linearGradient>
+
+                        <!-- Gradiente exclusivo para pintar o fundo do nome elegantemente -->
+                        <linearGradient id="pinkBgGrad" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0" stop-color="#d49ba9" stop-opacity="0.25"/>
+                            <stop offset="0.5" stop-color="#ad7182" stop-opacity="0.35"/>
+                            <stop offset="1" stop-color="#865363" stop-opacity="0.45"/>
+                        </linearGradient>
                     </defs>
 
+                    <!-- Preenchimento rosado (placa) que destaca o prata -->
+                    <path class="frame-bg"
+                        d="M 35,28 L 355,28 C 365,28 372,35 372,45 L 372,210 C 372,220 365,227 355,227 L 35,227 C 25,227 18,220 18,210 L 18,45 C 18,35 25,28 35,28 Z"
+                        fill="url(#pinkBgGrad)" />
+
+                    <!-- Linhas da moldura -->
                     <path class="draw-line frame-line delay-frame-1"
                         d="M 35,28 L 355,28 C 365,28 372,35 372,45 L 372,210 C 372,220 365,227 355,227 L 35,227 C 25,227 18,220 18,210 L 18,45 C 18,35 25,28 35,28 Z"
                         fill="none" stroke="url(#pinkStrokeCenter)" stroke-width="2"/>
