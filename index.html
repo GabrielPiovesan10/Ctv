@@ -76,7 +76,6 @@ button, input {
     display: flex;
     cursor: pointer;
     transition: visibility 2s;
-    /* Removido o background rosa para mostrar o convite durante a abertura */
 }
 
 .flap {
@@ -116,20 +115,6 @@ button, input {
     left: -100%;
 }
 
-#envelope-layer::after {
-    content: "✧";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 3;
-    color: #f4e9ec;
-    font-size: 36px;
-    text-shadow: 0 2px 12px rgba(80,45,60,.5);
-    pointer-events: none;
-    transition: opacity 0.4s ease; /* Animação para a estrela sumir suavemente */
-}
-
 .is-open .flap-left {
     transform: translateX(-100%);
 }
@@ -142,10 +127,6 @@ button, input {
     pointer-events: none;
     visibility: hidden;
     transition-delay: 1.5s;
-}
-
-.is-open#envelope-layer::after {
-    opacity: 0; /* A estrela some no momento em que toca na tela */
 }
 
 /* PAPEL DO CONVITE */
@@ -162,7 +143,7 @@ button, input {
     opacity: 0;
     transform: translateY(24px);
     transition: all 1.1s ease-out;
-    transition-delay: .5s;
+    transition-delay: .3s;
     background:
         radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.98), transparent 48%),
         linear-gradient(145deg, #fffafb, #f9eef1 52%, #fff9fa);
@@ -172,31 +153,6 @@ button, input {
 .is-open + .card-container {
     opacity: 1;
     transform: translateY(0);
-}
-
-.card-container::before {
-    content: "";
-    position: absolute;
-    inset: 13px;
-    border: 2px solid transparent;
-    background:
-        linear-gradient(135deg, #f8f9fa, #9296a2 22%, #f1f2f4 42%, #858996 62%, #f8f9fa 82%, #a5a8b1) border-box;
-    -webkit-mask:
-        linear-gradient(#fff 0 0) padding-box,
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    z-index: 4;
-}
-
-.card-container::after {
-    content: "";
-    position: absolute;
-    inset: 21px;
-    border: 1px solid rgba(173,113,130,.65);
-    pointer-events: none;
-    z-index: 4;
 }
 
 .watercolor-corner {
@@ -283,7 +239,7 @@ button, input {
     max-width: 520px;
 }
 
-/* NOME — PRATA METALIZADA COM MAIS DESTAQUE (MAIS DEVAGAR) */
+/* NOME E ANIMAÇÕES */
 
 .name-wrapper {
     position: relative;
@@ -334,13 +290,8 @@ button, input {
 }
 
 @keyframes metallicShine {
-    0%, 100% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
 }
 
 .frame-svg {
@@ -357,50 +308,29 @@ button, input {
     stroke-linejoin: round;
 }
 
-.frame-line {
-    stroke-dasharray: 1800;
-    stroke-dashoffset: 1800;
-}
+.frame-line { stroke-dasharray: 1800; stroke-dashoffset: 1800; }
+.is-open + .card-container .frame-line { animation: drawFrame 4.8s cubic-bezier(.4,0,.2,1) forwards; }
 
-.flower-line {
-    stroke-dasharray: 150;
-    stroke-dashoffset: 150;
-}
+.page-frame-line { stroke-dasharray: 100; stroke-dashoffset: 100; }
+.is-open + .card-container .page-frame-line { animation: drawPageFrame 9s cubic-bezier(.35, 0, .25, 1) forwards; }
 
-.is-open + .card-container .frame-line {
-    animation: drawFrame 4.8s cubic-bezier(.4,0,.2,1) forwards;
-}
-
-.is-open + .card-container .flower-line {
-    animation: drawFlower 3s cubic-bezier(.4,0,.2,1) forwards;
-}
+.flower-line { stroke-dasharray: 150; stroke-dashoffset: 150; }
+.is-open + .card-container .flower-line { animation: drawFlower 3s cubic-bezier(.4,0,.2,1) forwards; }
 
 .is-open + .card-container .delay-frame-1 { animation-delay: .8s; }
 .is-open + .card-container .delay-frame-2 { animation-delay: 1.3s; }
 .is-open + .card-container .delay-branch { animation-delay: 1.8s; }
-.is-open + .card-container .delay-leaf { animation-delay: 2.4s; }
-.is-open + .card-container .delay-center { animation-delay: 3s; }
-.is-open + .card-container .delay-petal { animation-delay: 3.6s; }
+.is-open + .card-container .delay-leaf { animation-delay: 2.6s; }
+.is-open + .card-container .delay-center { animation-delay: 3.2s; }
+.is-open + .card-container .delay-petal { animation-delay: 3.8s; }
 
-@keyframes drawFrame {
-    to { stroke-dashoffset: 0; }
-}
+@keyframes drawFrame { to { stroke-dashoffset: 0; } }
+@keyframes drawPageFrame { to { stroke-dashoffset: 0; } }
+@keyframes drawFlower { to { stroke-dashoffset: 0; } }
 
-@keyframes drawFlower {
-    to { stroke-dashoffset: 0; }
-}
-
-.fade-fill {
-    opacity: 0;
-}
-
-.is-open + .card-container .fade-fill {
-    animation: fadeIn 2s ease-in-out forwards 3.8s;
-}
-
-@keyframes fadeIn {
-    to { opacity: 1; }
-}
+.fade-fill { opacity: 0; }
+.is-open + .card-container .fade-fill { animation: fadeIn 2s ease-in-out forwards 4s; }
+@keyframes fadeIn { to { opacity: 1; } }
 
 /* DIVISÓRIAS E INFORMAÇÕES */
 
@@ -1079,6 +1009,98 @@ button, input {
 
     <!-- CONVITE PRINCIPAL -->
     <div class="card-container">
+        
+        <!-- ===============================================================
+             MOLDURA GLOBAL (DESENHA BEM DEVAGAR) E RAMOS NAS LATERAIS 
+             =============================================================== -->
+        <svg class="border-overlay" width="100%" height="100%" style="position:absolute; inset:0; pointer-events:none; z-index:2; overflow:visible;">
+            <defs>
+                <linearGradient id="silverStroke" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#777b87"/>
+                    <stop offset=".25" stop-color="#f5f6f8"/>
+                    <stop offset=".5" stop-color="#a0a3ae"/>
+                    <stop offset=".72" stop-color="#fff"/>
+                    <stop offset="1" stop-color="#777b87"/>
+                </linearGradient>
+
+                <linearGradient id="pinkStroke" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#e4b9c4"/>
+                    <stop offset=".5" stop-color="#a96d7d"/>
+                    <stop offset="1" stop-color="#e7c1ca"/>
+                </linearGradient>
+
+                <path id="petal" class="draw-line flower-line delay-petal" d="M 0,-4 C -12,-18 -15,-30 0,-34 C 15,-30 12,-18 0,-4 Z" fill="none" stroke="url(#silverStroke)" stroke-width="1.4"/>
+
+                <g id="sakura-flower">
+                    <circle cx="0" cy="0" r="4" class="draw-line flower-line delay-center" fill="none" stroke="url(#silverStroke)" stroke-width="1.6"/>
+                    <use href="#petal"/>
+                    <use href="#petal" transform="rotate(72)"/>
+                    <use href="#petal" transform="rotate(144)"/>
+                    <use href="#petal" transform="rotate(216)"/>
+                    <use href="#petal" transform="rotate(288)"/>
+                    <g class="fade-fill">
+                        <circle cx="0" cy="0" r="4" fill="#ad7182" opacity=".7"/>
+                        <path d="M 0,-4 C -12,-18 -15,-30 0,-34 C 15,-30 12,-18 0,-4 Z" fill="#d49ba9" opacity=".5"/>
+                        <path d="M 0,-4 C -12,-18 -15,-30 0,-34 C 15,-30 12,-18 0,-4 Z" fill="#d49ba9" opacity=".5" transform="rotate(72)"/>
+                        <path d="M 0,-4 C -12,-18 -15,-30 0,-34 C 15,-30 12,-18 0,-4 Z" fill="#d49ba9" opacity=".5" transform="rotate(144)"/>
+                        <path d="M 0,-4 C -12,-18 -15,-30 0,-34 C 15,-30 12,-18 0,-4 Z" fill="#d49ba9" opacity=".5" transform="rotate(216)"/>
+                        <path d="M 0,-4 C -12,-18 -15,-30 0,-34 C 15,-30 12,-18 0,-4 Z" fill="#d49ba9" opacity=".5" transform="rotate(288)"/>
+                    </g>
+                </g>
+
+                <g id="branch-leaf">
+                    <path class="draw-line flower-line delay-leaf" d="M 0,0 C -8,-8 -5,-20 10,-12 C 5,-2 15,8 0,0 Z" fill="none" stroke="url(#silverStroke)" stroke-width="1.3"/>
+                    <path class="fade-fill" d="M 0,0 C -8,-8 -5,-20 10,-12 C 5,-2 15,8 0,0 Z" fill="#d49ba9" opacity=".55" stroke="none"/>
+                </g>
+            </defs>
+
+            <!-- Moldura inteira do papel - Desenhando bem devagar -->
+            <rect x="12" y="12" width="calc(100% - 24px)" height="calc(100% - 24px)" fill="none" stroke="url(#pinkStroke)" stroke-width="1.5" pathLength="100" class="draw-line page-frame-line delay-frame-1" rx="8"/>
+            <rect x="18" y="18" width="calc(100% - 36px)" height="calc(100% - 36px)" fill="none" stroke="url(#silverStroke)" stroke-width="1" opacity="0.65" pathLength="100" class="draw-line page-frame-line delay-frame-2" rx="5"/>
+
+            <!-- Ramo Superior Esquerdo caindo -->
+            <svg x="12" y="12" overflow="visible">
+                <path d="M 0,35 C 0,160 45,220 0,380" fill="none" stroke="url(#silverStroke)" stroke-width="1.5" pathLength="100" class="draw-line page-frame-line delay-branch"/>
+                <svg x="12" y="90" overflow="visible"><use href="#sakura-flower" transform="scale(0.85) rotate(30)"/></svg>
+                <svg x="36" y="180" overflow="visible"><use href="#branch-leaf" transform="scale(0.9) rotate(60)"/></svg>
+                <svg x="18" y="270" overflow="visible"><use href="#sakura-flower" transform="scale(0.7) rotate(-20)"/></svg>
+                <svg x="-4" y="340" overflow="visible"><use href="#branch-leaf" transform="scale(0.75) rotate(15)"/></svg>
+            </svg>
+
+            <!-- Ramo Superior Direito caindo -->
+            <svg x="100%" y="12" overflow="visible">
+                <g transform="translate(-12, 0) scale(-1, 1)">
+                    <path d="M 0,35 C 0,160 45,220 0,380" fill="none" stroke="url(#silverStroke)" stroke-width="1.5" pathLength="100" class="draw-line page-frame-line delay-branch"/>
+                    <svg x="12" y="90" overflow="visible"><use href="#sakura-flower" transform="scale(0.85) rotate(30)"/></svg>
+                    <svg x="36" y="180" overflow="visible"><use href="#branch-leaf" transform="scale(0.9) rotate(60)"/></svg>
+                    <svg x="18" y="270" overflow="visible"><use href="#sakura-flower" transform="scale(0.7) rotate(-20)"/></svg>
+                    <svg x="-4" y="340" overflow="visible"><use href="#branch-leaf" transform="scale(0.75) rotate(15)"/></svg>
+                </g>
+            </svg>
+
+            <!-- Ramo Inferior Esquerdo subindo -->
+            <svg x="12" y="100%" overflow="visible">
+                <g transform="translate(0, -12) scale(1, -1)">
+                    <path d="M 0,35 C 0,160 45,220 0,380" fill="none" stroke="url(#silverStroke)" stroke-width="1.5" pathLength="100" class="draw-line page-frame-line delay-branch"/>
+                    <svg x="12" y="90" overflow="visible"><use href="#sakura-flower" transform="scale(0.85) rotate(30)"/></svg>
+                    <svg x="36" y="180" overflow="visible"><use href="#branch-leaf" transform="scale(0.9) rotate(60)"/></svg>
+                    <svg x="18" y="270" overflow="visible"><use href="#sakura-flower" transform="scale(0.7) rotate(-20)"/></svg>
+                    <svg x="-4" y="340" overflow="visible"><use href="#branch-leaf" transform="scale(0.75) rotate(15)"/></svg>
+                </g>
+            </svg>
+
+            <!-- Ramo Inferior Direito subindo -->
+            <svg x="100%" y="100%" overflow="visible">
+                <g transform="translate(-12, -12) scale(-1, -1)">
+                    <path d="M 0,35 C 0,160 45,220 0,380" fill="none" stroke="url(#silverStroke)" stroke-width="1.5" pathLength="100" class="draw-line page-frame-line delay-branch"/>
+                    <svg x="12" y="90" overflow="visible"><use href="#sakura-flower" transform="scale(0.85) rotate(30)"/></svg>
+                    <svg x="36" y="180" overflow="visible"><use href="#branch-leaf" transform="scale(0.9) rotate(60)"/></svg>
+                    <svg x="18" y="270" overflow="visible"><use href="#sakura-flower" transform="scale(0.7) rotate(-20)"/></svg>
+                    <svg x="-4" y="340" overflow="visible"><use href="#branch-leaf" transform="scale(0.75) rotate(15)"/></svg>
+                </g>
+            </svg>
+        </svg>
+
         <div class="watercolor-corner corner-tl"></div>
         <div class="watercolor-corner corner-br"></div>
 
@@ -1089,17 +1111,18 @@ button, input {
 
         <div class="content-layer">
 
-            <div class="top-ornament">✧ ❀ ✧</div>
+            <div class="top-ornament" style="margin-top: 20px;">✧ ❀ ✧</div>
 
             <p class="quote">
                 "Entre tudo o que já vivi e tudo o que ainda sonho viver, existe uma noite que merece ser lembrada para sempre."
             </p>
 
-            <!-- NOME COM MOLDURA FLORAL -->
+            <!-- NOME APENAS COM A MOLDURA DE LINHAS (SEM FLORES INTERNAS) -->
             <div class="name-wrapper">
                 <svg class="frame-svg" viewBox="0 0 390 255" xmlns="http://www.w3.org/2000/svg">
                     <defs>
-                        <linearGradient id="silverStroke" x1="0" y1="0" x2="1" y2="1">
+                        <!-- Os mesmos gradientes necessários para as linhas da moldura central -->
+                        <linearGradient id="silverStrokeCenter" x1="0" y1="0" x2="1" y2="1">
                             <stop offset="0" stop-color="#777b87"/>
                             <stop offset=".25" stop-color="#f5f6f8"/>
                             <stop offset=".5" stop-color="#a0a3ae"/>
@@ -1107,82 +1130,24 @@ button, input {
                             <stop offset="1" stop-color="#777b87"/>
                         </linearGradient>
 
-                        <linearGradient id="pinkStroke" x1="0" y1="0" x2="1" y2="1">
+                        <linearGradient id="pinkStrokeCenter" x1="0" y1="0" x2="1" y2="1">
                             <stop offset="0" stop-color="#e4b9c4"/>
                             <stop offset=".5" stop-color="#a96d7d"/>
                             <stop offset="1" stop-color="#e7c1ca"/>
                         </linearGradient>
-
-                        <path id="petal" class="draw-line flower-line delay-petal"
-                            d="M 0,-4 C -12,-18 -15,-30 0,-34 C 15,-30 12,-18 0,-4 Z"
-                            fill="none" stroke="url(#silverStroke)" stroke-width="1.4"/>
-
-                        <g id="sakura-flower">
-                            <circle cx="0" cy="0" r="4"
-                                class="draw-line flower-line delay-center"
-                                fill="none" stroke="url(#silverStroke)" stroke-width="1.6"/>
-                            <use href="#petal"/>
-                            <use href="#petal" transform="rotate(72)"/>
-                            <use href="#petal" transform="rotate(144)"/>
-                            <use href="#petal" transform="rotate(216)"/>
-                            <use href="#petal" transform="rotate(288)"/>
-                            <g class="fade-fill">
-                                <circle cx="0" cy="0" r="4" fill="#ad7182" opacity=".7"/>
-                                <path d="M 0,-4 C -12,-18 -15,-30 0,-34 C 15,-30 12,-18 0,-4 Z" fill="#d49ba9" opacity=".5"/>
-                                <path d="M 0,-4 C -12,-18 -15,-30 0,-34 C 15,-30 12,-18 0,-4 Z" fill="#d49ba9" opacity=".5" transform="rotate(72)"/>
-                                <path d="M 0,-4 C -12,-18 -15,-30 0,-34 C 15,-30 12,-18 0,-4 Z" fill="#d49ba9" opacity=".5" transform="rotate(144)"/>
-                                <path d="M 0,-4 C -12,-18 -15,-30 0,-34 C 15,-30 12,-18 0,-4 Z" fill="#d49ba9" opacity=".5" transform="rotate(216)"/>
-                                <path d="M 0,-4 C -12,-18 -15,-30 0,-34 C 15,-30 12,-18 0,-4 Z" fill="#d49ba9" opacity=".5" transform="rotate(288)"/>
-                            </g>
-                        </g>
-
-                        <g id="branch-leaf">
-                            <path class="draw-line flower-line delay-leaf"
-                                d="M 0,0 C -8,-8 -5,-20 10,-12 C 5,-2 15,8 0,0 Z"
-                                fill="none" stroke="url(#silverStroke)" stroke-width="1.3"/>
-                            <path class="fade-fill"
-                                d="M 0,0 C -8,-8 -5,-20 10,-12 C 5,-2 15,8 0,0 Z"
-                                fill="#d49ba9" opacity=".55" stroke="none"/>
-                        </g>
                     </defs>
 
                     <path class="draw-line frame-line delay-frame-1"
                         d="M 35,28 L 355,28 C 365,28 372,35 372,45 L 372,210 C 372,220 365,227 355,227 L 35,227 C 25,227 18,220 18,210 L 18,45 C 18,35 25,28 35,28 Z"
-                        fill="none" stroke="url(#pinkStroke)" stroke-width="2"/>
+                        fill="none" stroke="url(#pinkStrokeCenter)" stroke-width="2"/>
 
                     <path class="draw-line frame-line delay-frame-2"
                         d="M 43,36 L 347,36 L 347,219 L 43,219 Z"
-                        fill="none" stroke="url(#silverStroke)" stroke-width="2"/>
+                        fill="none" stroke="url(#silverStrokeCenter)" stroke-width="2"/>
 
                     <path class="draw-line frame-line delay-frame-2"
                         d="M 52,44 L 338,44 L 338,211 L 52,211 Z"
                         fill="none" stroke="#d7aab5" stroke-width=".7" opacity=".8"/>
-
-                    <g transform="translate(18, 28)">
-                        <path class="draw-line frame-line delay-branch"
-                            d="M 12,95 C 12,35 35,12 95,12"
-                            fill="none" stroke="url(#silverStroke)" stroke-width="1.7"/>
-                        <use href="#branch-leaf" transform="translate(55,18) rotate(45)"/>
-                        <use href="#branch-leaf" transform="translate(18,55) rotate(-45)"/>
-                        <use href="#branch-leaf" transform="translate(82,13) rotate(70)"/>
-                        <use href="#branch-leaf" transform="translate(13,82) rotate(-70)"/>
-                        <use href="#sakura-flower" transform="translate(35,35) scale(.9)"/>
-                        <use href="#sakura-flower" transform="translate(70,17) scale(.5) rotate(30)"/>
-                        <use href="#sakura-flower" transform="translate(17,70) scale(.5) rotate(-20)"/>
-                    </g>
-
-                    <g transform="translate(372, 227) rotate(180)">
-                        <path class="draw-line frame-line delay-branch"
-                            d="M 12,95 C 12,35 35,12 95,12"
-                            fill="none" stroke="url(#silverStroke)" stroke-width="1.7"/>
-                        <use href="#branch-leaf" transform="translate(55,18) rotate(45)"/>
-                        <use href="#branch-leaf" transform="translate(18,55) rotate(-45)"/>
-                        <use href="#branch-leaf" transform="translate(82,13) rotate(70)"/>
-                        <use href="#branch-leaf" transform="translate(13,82) rotate(-70)"/>
-                        <use href="#sakura-flower" transform="translate(35,35) scale(.9)"/>
-                        <use href="#sakura-flower" transform="translate(70,17) scale(.5) rotate(30)"/>
-                        <use href="#sakura-flower" transform="translate(17,70) scale(.5) rotate(-20)"/>
-                    </g>
                 </svg>
 
                 <h1 class="name">LAURA<br>VITURI</h1>
@@ -1298,7 +1263,7 @@ button, input {
                 Confirmar Presença
             </button>
 
-            <div class="top-ornament mt-8">✧ ❀ ✧</div>
+            <div class="top-ornament mt-12 mb-0">✧ ❀ ✧</div>
         </div>
     </div>
 
