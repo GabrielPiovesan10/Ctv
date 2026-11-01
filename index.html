@@ -2,1070 +2,1267 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#f7e9ed">
-<title>Laura Vituri | Meus 15 Anos</title>
+<title>Laura Vituri | 15 Anos</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Lora:ital,wght@0,400;0,500;1,400&family=Parisienne&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
 <style>
 :root{
- --pink:#d49ba9;
- --deep:#865363;
- --silver:#aeb1bb;
- --ink:#493b41;
+--pink:#d49ba9;
+--deep:#ad7182;
+--dark:#865363;
+--silver:#b8bbc4;
+--silver-dark:#737783;
+--ink:#493b41;
+--serif:'Cinzel',serif;
+--display:'Playfair Display',serif;
+--body:'Lora',serif;
 }
 
 *{box-sizing:border-box}
 
+html{scroll-behavior:smooth}
+
 body{
- margin:0;
- background:#f7e9ed;
- color:var(--ink);
- font-family:'Lora',serif;
- overflow-x:hidden;
+margin:0;
+font-family:var(--body);
+color:var(--ink);
+background:
+radial-gradient(ellipse at 15% 5%,#fff,transparent 40%),
+radial-gradient(ellipse at 90% 90%,rgba(205,165,177,.25),transparent 42%),
+linear-gradient(135deg,#f7e9ed,#fdf7f8 48%,#ead6dc);
+overflow-x:hidden;
+-webkit-tap-highlight-color:transparent;
 }
 
-button{font:inherit;cursor:pointer}
+button{font:inherit}
 
 /* ABERTURA */
 
-#opening{
- position:fixed;
- inset:0;
- z-index:1000;
- display:flex;
- align-items:center;
- justify-content:center;
- text-align:center;
- background:
- radial-gradient(ellipse at 50% 20%,#fff,transparent 60%),
- linear-gradient(145deg,#f5e2e8,#fffafb,#e8d4dc);
- transition:1.5s;
- overflow:hidden;
+#app{
+width:100%;
+min-height:100vh;
+display:flex;
+justify-content:center;
 }
 
-#opening.hidden{
- opacity:0;
- visibility:hidden;
- pointer-events:none;
+#envelope-layer{
+position:fixed;
+inset:0;
+z-index:500;
+display:flex;
+cursor:pointer;
+transition:visibility 2s;
 }
 
-.open-content{
- width:100%;
- max-width:440px;
- padding:25px;
+.flap{
+position:relative;
+width:50%;
+height:100%;
+overflow:hidden;
+transition:transform 1.65s cubic-bezier(.77,0,.175,1);
 }
 
-.open-photo{
- width:250px;
- height:315px;
- margin:auto;
- padding:7px;
- background:linear-gradient(135deg,#fff,#aeb1bb,#fff,#d49ba9);
- box-shadow:0 15px 40px #86536335;
- border-radius:150px 150px 5px 5px;
+.flap-inner{
+position:absolute;
+top:0;
+width:200%;
+height:100%;
+background:
+linear-gradient(135deg,rgba(255,255,255,.08),rgba(130,80,95,.12)),
+url('capa.PNG');
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
 }
 
-.open-photo img{
- width:100%;
- height:100%;
- object-fit:cover;
- object-position:center;
- border-radius:145px 145px 3px 3px;
- display:block;
+.flap-left{transform-origin:left center}
+.flap-left .flap-inner{left:0}
+.flap-right{transform-origin:right center}
+.flap-right .flap-inner{left:-100%}
+
+.is-open .flap-left{transform:translateX(-100%)}
+.is-open .flap-right{transform:translateX(100%)}
+
+.is-open#envelope-layer{
+pointer-events:none;
+visibility:hidden;
+transition-delay:1.5s;
 }
 
-.open-title{
- font-family:'Parisienne',cursive;
- font-size:52px;
- color:var(--deep);
- margin:20px 0 0;
+/* PAPEL */
+
+.card-container{
+width:100%;
+max-width:680px;
+min-height:100vh;
+position:relative;
+overflow:hidden;
+padding:50px 27px 65px;
+text-align:center;
+margin:auto;
+opacity:0;
+transform:translateY(24px);
+transition:all 1.1s ease-out;
+transition-delay:.3s;
+background:
+radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.98),transparent 48%),
+linear-gradient(145deg,#fffafb,#f9eef1 52%,#fff9fa);
+box-shadow:0 0 80px rgba(117,75,91,.13);
 }
 
-.open-subtitle{
- font-family:'Cinzel',serif;
- font-size:11px;
- letter-spacing:4px;
- color:#777b87;
- margin-top:5px;
+.is-open + .card-container{
+opacity:1;
+transform:translateY(0);
 }
 
-.open-ornament{
- color:var(--pink);
- font-size:25px;
- margin:18px;
+/* DECORAÇÃO */
+
+.watercolor-corner{
+position:absolute;
+border-radius:50%;
+filter:blur(28px);
+z-index:0;
+pointer-events:none;
 }
 
-.enter-button{
- border:1px solid var(--silver);
- background:linear-gradient(120deg,#fff,#f1e6e9);
- color:var(--deep);
- padding:16px 30px;
- font-family:'Cinzel',serif;
- font-size:11px;
- letter-spacing:2px;
- box-shadow:0 5px 20px #86536320;
- animation:pulse 2s infinite;
+.corner-tl{
+top:-145px;
+left:-140px;
+width:320px;
+height:320px;
+background:radial-gradient(circle,rgba(212,155,169,.34),rgba(184,187,196,.2) 48%,transparent 72%);
 }
 
-@keyframes pulse{
- 50%{transform:scale(1.04);box-shadow:0 0 22px #d49ba966}
+.corner-br{
+bottom:5%;
+right:-150px;
+width:320px;
+height:320px;
+background:radial-gradient(circle,rgba(184,187,196,.24),rgba(212,155,169,.28) 48%,transparent 72%);
 }
 
-/* CONVITE */
-
-#invitation{
- display:none;
- max-width:560px;
- min-height:100vh;
- margin:auto;
- padding:35px 24px 55px;
- position:relative;
- overflow:hidden;
- text-align:center;
- background:
- radial-gradient(ellipse at 10% 5%,#f3dce2,transparent 35%),
- radial-gradient(ellipse at 90% 90%,#e9dce3,transparent 40%),
- linear-gradient(145deg,#fffafb,#f9eef1);
- box-shadow:0 0 50px #86536320;
+.corner-center{
+top:22%;
+left:50%;
+transform:translate(-50%,-50%);
+width:400px;
+height:300px;
+background:radial-gradient(ellipse,rgba(212,155,169,.22),transparent 75%);
 }
 
-#invitation.visible{
- display:block;
- animation:appear 1.3s ease both;
+.content-layer{
+position:relative;
+z-index:5;
 }
 
-@keyframes appear{
- from{opacity:0;transform:translateY(25px)}
- to{opacity:1;transform:translateY(0)}
+.top-ornament{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:13px;
+margin:0 auto 22px;
+color:var(--silver-dark);
+font-size:21px;
 }
 
-.frame{
- position:absolute;
- inset:12px;
- border:1px solid #bd8797;
- border-radius:7px;
- pointer-events:none;
+.top-ornament:before,
+.top-ornament:after{
+content:"";
+width:75px;
+height:1px;
+background:linear-gradient(90deg,transparent,var(--silver-dark),transparent);
 }
 
-.frame:after{
- content:"";
- position:absolute;
- inset:5px;
- border:1px solid #c5c7cf;
- border-radius:5px;
+.quote{
+font-family:var(--display);
+font-style:italic;
+font-size:clamp(1rem,4vw,1.3rem);
+color:#59434c;
+line-height:1.6;
+margin:10px auto 25px;
+max-width:520px;
 }
 
-.content{position:relative;z-index:2}
+/* FOTO DA LAURA */
 
-.ornament{
- color:var(--silver);
- font-size:25px;
- letter-spacing:12px;
- margin:8px 0 22px;
+.photo-wrapper{
+position:relative;
+width:100%;
+max-width:460px;
+margin:15px auto 28px;
+padding:9px;
+background:linear-gradient(135deg,#fff,#d49ba9,#f7e9ed,#aeb1bb,#fff);
+box-shadow:0 12px 35px rgba(100,65,80,.18);
+border-radius:3px;
+opacity:0;
+transform:translateY(20px) scale(.97);
+transition:all 1.5s ease;
+transition-delay:1s;
 }
 
-.photo-frame{
- width:245px;
- height:305px;
- margin:15px auto 22px;
- padding:7px;
- background:linear-gradient(140deg,#fff,#c5c7cf,#fff,#d49ba9);
- box-shadow:0 12px 30px #86536325;
- border-radius:150px 150px 5px 5px;
+.is-open + .card-container .photo-wrapper{
+opacity:1;
+transform:translateY(0) scale(1);
 }
 
-.photo-frame img{
- width:100%;
- height:100%;
- object-fit:cover;
- object-position:center;
- display:block;
- border-radius:145px 145px 3px 3px;
+.photo-wrapper:before{
+content:"";
+position:absolute;
+inset:4px;
+border:1px solid rgba(255,255,255,.9);
+pointer-events:none;
+z-index:2;
 }
+
+.photo-wrapper img{
+display:block;
+width:100%;
+height:auto;
+max-height:490px;
+object-fit:contain;
+}
+
+/* NOME */
 
 .name{
- font-family:'Cinzel',serif;
- font-size:clamp(34px,8vw,46px);
- line-height:1.25;
- letter-spacing:4px;
- background:linear-gradient(110deg,#626672,#fff,#858995,#e4e5e9,#777b87);
- background-size:200% auto;
- color:transparent;
- background-clip:text;
- -webkit-background-clip:text;
- animation:shine 7s infinite;
- filter:drop-shadow(0 3px 3px #55596655);
+font-family:var(--serif);
+font-size:clamp(2rem,8vw,3rem);
+font-weight:600;
+letter-spacing:3px;
+margin:22px 0 8px;
+background:linear-gradient(110deg,#777b87,#fff,#858995,#fff,#777b87);
+background-size:250% 100%;
+-webkit-background-clip:text;
+background-clip:text;
+color:transparent;
+filter:drop-shadow(0 3px 4px rgba(90,50,70,.3));
+animation:shine 10s infinite;
 }
 
 @keyframes shine{
- to{background-position:200% center}
+0%,100%{background-position:0 50%}
+50%{background-position:100% 50%}
 }
 
 .age{
- font-family:'Parisienne',cursive;
- font-size:40px;
- color:var(--deep);
- margin:4px 0 15px;
-}
-
-.intro{
- font-family:'Playfair Display',serif;
- font-style:italic;
- color:#66545d;
- font-size:17px;
- line-height:1.7;
- max-width:390px;
- margin:15px auto 25px;
+font-family:var(--display);
+font-size:1.5rem;
+color:var(--dark);
+font-style:italic;
+letter-spacing:3px;
 }
 
 .divider{
- width:110px;
- height:1px;
- background:linear-gradient(90deg,transparent,var(--silver),var(--pink),transparent);
- margin:25px auto;
+width:2px;
+height:40px;
+background:linear-gradient(to bottom,var(--pink),#fff,var(--silver-dark));
+margin:24px auto;
 }
 
-/* DATA E CONTAGEM */
+.divider-horizontal{
+height:1px;
+width:145px;
+background:linear-gradient(to right,transparent,var(--silver-dark),transparent);
+margin:28px auto;
+}
+
+/* DATA */
 
 .date-title{
- font-family:'Cinzel',serif;
- font-size:12px;
- letter-spacing:3px;
- color:var(--deep);
+font-family:var(--serif);
+font-size:1rem;
+letter-spacing:2px;
+color:var(--deep);
+text-transform:uppercase;
 }
 
-.date{
- font-family:'Playfair Display',serif;
- font-size:25px;
- margin:12px 0 4px;
- color:#65515a;
+.date-description{
+font-family:var(--display);
+font-size:1.2rem;
+margin-top:10px;
 }
 
-.hour{
- font-size:14px;
- letter-spacing:3px;
- color:#8c7780;
+/* CONTAGEM */
+
+.countdown-wrapper{
+display:flex;
+justify-content:center;
+gap:11px;
+margin:27px 0 18px;
+flex-wrap:wrap;
 }
 
-.countdown{
- display:flex;
- justify-content:center;
- gap:10px;
- margin:27px auto;
- flex-wrap:wrap;
+.time-box{
+background:linear-gradient(145deg,#d9a8b4,#b77f8e 52%,#986574);
+border-radius:5px;
+padding:15px 0 13px;
+width:72px;
+box-shadow:0 0 0 2px #fff,0 0 0 3px #a3a6b0,0 9px 20px rgba(140,85,105,.2);
 }
 
-.time{
- width:68px;
- padding:13px 3px;
- background:linear-gradient(145deg,#d9a8b4,#b77f8e,#986574);
- color:white;
- border:2px solid white;
- outline:1px solid #a3a6b0;
- box-shadow:0 6px 15px #86536325;
+.time-number{
+display:block;
+font-family:var(--display);
+font-size:1.7rem;
+color:white;
+font-weight:700;
 }
 
-.time strong{
- display:block;
- font-family:'Playfair Display',serif;
- font-size:26px;
+.time-label{
+display:block;
+font-size:.6rem;
+text-transform:uppercase;
+letter-spacing:1.5px;
+color:white;
+margin-top:7px;
 }
 
-.time span{
- font-size:9px;
- letter-spacing:1px;
- text-transform:uppercase;
+/* BOTÕES INTERATIVOS */
+
+.action-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+max-width:440px;
+margin:30px auto;
 }
 
-/* AGENDA */
-
-.agenda{
- display:inline-flex;
- align-items:center;
- gap:8px;
- padding:13px 20px;
- text-decoration:none;
- color:var(--deep);
- background:white;
- border:1px solid var(--silver);
- font-family:'Cinzel',serif;
- font-size:10px;
- letter-spacing:1px;
+.action-card{
+position:relative;
+min-height:125px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:9px;
+text-decoration:none;
+color:var(--dark);
+background:linear-gradient(145deg,#fff,#f9edf1);
+border:1px solid #c9a3ae;
+outline:1px solid rgba(255,255,255,.9);
+outline-offset:-5px;
+box-shadow:0 6px 17px rgba(100,70,85,.09);
+transition:all .3s ease;
+cursor:pointer;
+padding:16px 8px;
 }
 
-/* MENU DE ÍCONES */
-
-.menu-title{
- font-family:'Cinzel',serif;
- font-size:11px;
- letter-spacing:3px;
- color:#92828a;
- margin:30px 0 18px;
+.action-card:hover,
+.action-card:active{
+transform:translateY(-3px);
+box-shadow:0 10px 23px rgba(165,104,125,.2);
+background:linear-gradient(145deg,#fff,#f2dce2);
 }
 
-.icon-menu{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:13px;
- max-width:390px;
- margin:auto;
+.action-card i{
+font-size:32px;
+color:var(--deep);
 }
 
-.menu-item{
- border:1px solid #c5b4bb;
- background:linear-gradient(145deg,#fff,#f7e9ed);
- padding:22px 8px 18px;
- min-height:115px;
- color:var(--deep);
- text-decoration:none;
- display:flex;
- flex-direction:column;
- align-items:center;
- justify-content:center;
- gap:10px;
- box-shadow:0 5px 15px #86536310;
- transition:.3s;
+.action-card span{
+font-family:var(--serif);
+font-size:.69rem;
+letter-spacing:1.2px;
+text-transform:uppercase;
+font-weight:600;
 }
 
-.menu-item:hover{
- transform:translateY(-4px);
- background:white;
- box-shadow:0 9px 20px #86536325;
+/* BOTÕES MENORES */
+
+.btn{
+display:inline-flex;
+align-items:center;
+justify-content:center;
+gap:9px;
+padding:13px 20px;
+border-radius:3px;
+font-family:var(--serif);
+font-size:.72rem;
+letter-spacing:1.2px;
+text-transform:uppercase;
+text-decoration:none;
+cursor:pointer;
+transition:all .3s;
 }
 
-.menu-item i{
- font-size:32px;
- color:#a87b89;
+.btn-outline{
+border:1px solid var(--silver-mid,#9b9eaa);
+color:var(--silver-dark);
+background:linear-gradient(120deg,#fff,#f0f0f3,#fff);
 }
 
-.menu-item span{
- font-family:'Cinzel',serif;
- font-size:10px;
- letter-spacing:1.5px;
+.btn-solid{
+border:1px solid #a66e7d;
+color:white;
+background:linear-gradient(125deg,#d8a8b4,#b77d8d,#966071);
 }
 
-.footer{
- font-family:'Parisienne',cursive;
- font-size:32px;
- color:var(--deep);
- margin-top:38px;
-}
-
-.footer-small{
- font-size:10px;
- letter-spacing:2px;
- color:#93828a;
- margin-top:8px;
+.btn-dark{
+border:1px solid var(--silver-dark);
+color:white;
+background:linear-gradient(125deg,#bfc1c9,#858995,#666a76);
 }
 
 /* MODAIS */
 
-.modal{
- position:fixed;
- inset:0;
- z-index:200;
- background:#392c345e;
- backdrop-filter:blur(7px);
- display:flex;
- align-items:center;
- justify-content:center;
- padding:18px;
- opacity:0;
- visibility:hidden;
- transition:.3s;
+#confirm-modal,
+#gift-modal,
+#dress-modal{
+position:fixed;
+inset:0;
+background:rgba(39,29,35,.58);
+backdrop-filter:blur(7px);
+-webkit-backdrop-filter:blur(7px);
+z-index:600;
+display:flex;
+align-items:center;
+justify-content:center;
+visibility:hidden;
+opacity:0;
+transition:all .3s ease;
+padding:18px;
 }
 
-.modal.show{
- opacity:1;
- visibility:visible;
+#confirm-modal.show,
+#gift-modal.show,
+#dress-modal.show{
+visibility:visible;
+opacity:1;
 }
 
 .modal-card{
- width:100%;
- max-width:390px;
- max-height:85vh;
- overflow-y:auto;
- position:relative;
- background:linear-gradient(145deg,#fffafb,#f4e5e9);
- padding:35px 24px;
- text-align:center;
- border:1px solid var(--silver);
- outline:1px solid white;
- outline-offset:-6px;
- box-shadow:0 20px 60px #0003;
+position:relative;
+background:
+radial-gradient(ellipse at top,#fff,transparent 70%),
+linear-gradient(145deg,#fff9fa,#f4e5e9);
+width:90%;
+max-width:400px;
+max-height:90vh;
+overflow-y:auto;
+padding:40px 25px;
+border:1px solid var(--silver-dark);
+outline:1px solid var(--pink-mid);
+outline-offset:4px;
+box-shadow:0 25px 60px rgba(0,0,0,.3);
+text-align:center;
+transform:translateY(20px) scale(.95);
+transition:all .4s cubic-bezier(.175,.885,.32,1.275);
 }
 
-.modal-card h2{
- font-family:'Playfair Display',serif;
- font-size:27px;
- color:var(--deep);
- font-weight:500;
- margin:8px 0 15px;
+#confirm-modal.show .modal-card,
+#gift-modal.show .modal-card,
+#dress-modal.show .modal-card{
+transform:translateY(0) scale(1);
 }
 
-.modal-card p{
- font-size:14px;
- line-height:1.8;
- color:#66545d;
+.modal-title{
+font-family:var(--display);
+font-size:1.7rem;
+color:var(--silver-shadow,#555966);
+margin:0 0 12px;
 }
 
-.close{
- position:absolute;
- top:9px;
- right:14px;
- border:0;
- background:none;
- color:var(--deep);
- font-size:27px;
+.modal-text{
+font-size:.95rem;
+color:#66545d;
+margin-bottom:20px;
+line-height:1.7;
 }
 
-.modal-icon{
- font-size:34px;
- color:var(--pink);
+.input-elegant{
+width:100%;
+padding:14px;
+border:1px solid var(--silver);
+background:white;
+font-family:var(--body);
+font-size:1rem;
+outline:none;
+margin-bottom:18px;
+text-align:center;
 }
 
-.pix-box{
- background:#fff;
- border:1px solid var(--silver);
- padding:16px 10px;
- margin:18px 0;
- color:var(--deep);
- font-size:17px;
- letter-spacing:1px;
- overflow-wrap:anywhere;
- animation:pixPulse 2.8s infinite;
+.input-elegant:focus{
+border-color:var(--deep);
+}
+
+/* PIX */
+
+.pix-highlight{
+position:relative;
+z-index:2;
+border-radius:3px;
+animation:pixPulse 2.8s ease-in-out infinite;
+background:linear-gradient(135deg,#f8e9ed,#fff);
+border:1px solid var(--silver);
+padding:20px 12px;
+margin-bottom:20px;
 }
 
 @keyframes pixPulse{
- 50%{box-shadow:0 0 0 5px #d49ba922,0 5px 20px #ad718233}
+0%,100%{transform:scale(1);box-shadow:0 4px 14px rgba(173,113,130,.08)}
+50%{transform:scale(1.025);box-shadow:0 0 0 5px rgba(212,155,169,.12),0 7px 22px rgba(173,113,130,.2)}
 }
 
-.action-button{
- width:100%;
- padding:14px;
- border:1px solid #a66e7d;
- background:linear-gradient(120deg,#d8a8b4,#966071);
- color:white;
- font-family:'Cinzel',serif;
- font-size:11px;
- letter-spacing:1px;
- margin-top:10px;
+.pix-key{
+background:white;
+border:1px solid #dfe1e6;
+padding:13px 8px;
+color:var(--ink);
+font-size:18px;
+letter-spacing:1px;
+overflow-wrap:anywhere;
+animation:pixKeyGlow 2.8s infinite;
 }
 
-.secondary{
- background:white;
- color:var(--deep);
- border:1px solid var(--silver);
+@keyframes pixKeyGlow{
+0%,100%{border-color:#dfe1e6}
+50%{border-color:var(--pink)}
 }
-
-.input{
- width:100%;
- padding:14px;
- border:1px solid var(--silver);
- background:white;
- text-align:center;
- margin:15px 0;
- outline:none;
- color:var(--ink);
- font-family:'Lora',serif;
-}
-
-.input:focus{
- border-color:var(--pink);
- box-shadow:0 0 0 3px #d49ba922;
-}
-
-/* MÚSICA */
-
-.music-button{
- position:fixed;
- z-index:50;
- bottom:20px;
- right:18px;
- width:45px;
- height:45px;
- border-radius:50%;
- border:1px solid var(--silver);
- background:#fff;
- color:var(--deep);
- box-shadow:0 4px 15px #86536330;
- display:none;
-}
-
-.music-button.show{display:block}
 
 /* FLORES E CORAÇÕES */
 
-.falling{
- position:fixed;
- z-index:500;
- top:-30px;
- pointer-events:none;
- animation:fall linear forwards;
+#gift-modal .modal-card{overflow:hidden;isolation:isolate}
+
+#gift-animation{
+position:absolute;
+inset:0;
+overflow:hidden;
+pointer-events:none;
+z-index:1;
 }
 
-@keyframes fall{
- to{
-  transform:translateY(110vh) rotate(360deg);
-  opacity:0;
- }
+.gift-content{
+position:relative;
+z-index:2;
+}
+
+.gift-fall{
+position:absolute;
+top:-35px;
+opacity:0;
+pointer-events:none;
+animation:giftFall linear forwards;
+}
+
+@keyframes giftFall{
+0%{opacity:0;transform:translateY(-15px) rotate(0)}
+12%{opacity:.8}
+80%{opacity:.65}
+100%{opacity:0;transform:translate(var(--drift),430px) rotate(var(--rotation))}
 }
 
 /* TOAST */
 
 #toast{
- position:fixed;
- z-index:9999;
- bottom:25px;
- left:50%;
- transform:translate(-50%,100px);
- opacity:0;
- transition:.4s;
- padding:13px 22px;
- background:#777b87;
- color:white;
- font-size:13px;
- white-space:nowrap;
+position:fixed;
+bottom:30px;
+left:50%;
+transform:translateX(-50%) translateY(100px);
+background:linear-gradient(120deg,#777b87,#aeb1ba);
+color:white;
+padding:14px 20px;
+font-size:.85rem;
+z-index:900;
+opacity:0;
+transition:all .4s;
+box-shadow:0 10px 30px rgba(0,0,0,.25);
+white-space:nowrap;
 }
 
 #toast.show{
- transform:translate(-50%,0);
- opacity:1;
+transform:translateX(-50%) translateY(0);
+opacity:1;
 }
 
-@media(max-width:380px){
- #invitation{padding:28px 19px 45px}
- .open-photo{width:220px;height:280px}
- .photo-frame{width:220px;height:280px}
- .time{width:61px}
- .menu-item{min-height:105px}
+/* CONTROLE DE MÚSICA */
+
+.music-control{
+position:fixed;
+bottom:20px;
+right:18px;
+z-index:100;
+width:48px;
+height:48px;
+border-radius:50%;
+border:1px solid #c79ba8;
+background:linear-gradient(145deg,#fff,#f2dce2);
+color:var(--dark);
+box-shadow:0 5px 15px rgba(100,70,85,.2);
+display:none;
+align-items:center;
+justify-content:center;
+font-size:23px;
+cursor:pointer;
+}
+
+.music-control.visible{display:flex}
+
+.music-control.playing i{
+animation:musicSpin 4s linear infinite;
+}
+
+@keyframes musicSpin{
+to{transform:rotate(360deg)}
+}
+
+/* RESPONSIVO */
+
+@media(max-width:480px){
+.card-container{padding:45px 22px 55px}
+.photo-wrapper{max-width:100%}
+.time-box{width:65px;padding:13px 0}
+.time-number{font-size:1.5rem}
+.action-grid{gap:11px}
+.action-card{min-height:112px}
+.action-card i{font-size:29px}
+.modal-card{padding:35px 22px}
 }
 
 @media(prefers-reduced-motion:reduce){
- *,*::before,*::after{
-  animation-duration:.01ms!important;
-  transition-duration:.01ms!important;
- }
+*,*::before,*::after{
+animation-duration:.01ms!important;
+transition-duration:.01ms!important;
+}
 }
 </style>
 </head>
 
 <body>
 
-<!--
-ARQUIVOS NA MESMA PASTA:
-foto.jpg     = fotografia original da Laura
-musica.mp3   = música escolhida para o convite
--->
+<div id="app">
 
-<audio id="music" loop preload="auto">
- <source src="musica.mp3" type="audio/mpeg">
-</audio>
-
-<!-- ABERTURA -->
-<section id="opening">
- <div class="open-content">
-
-  <div class="open-photo">
-   <img src="foto.PNG" alt="Laura Vituri">
-  </div>
-
-  <h1 class="open-title">Laura Vituri</h1>
-
-  <div class="open-subtitle">
-   15 ANOS • UMA NOITE ESPECIAL
-  </div>
-
-  <div class="open-ornament">✧ ❀ ✧</div>
-
-  <button class="enter-button" onclick="entrar()">
-   ♡ TOQUE PARA ENTRAR ♡
-  </button>
-
-  <p style="font-size:11px;color:#93828a;margin-top:20px">
-   Prepare-se para viver uma noite inesquecível.
-  </p>
-
- </div>
-</section>
+<!-- CAPA: MANTER CAPA.PNG NA PASTA -->
+<div id="envelope-layer">
+    <div class="flap flap-left">
+        <div class="flap-inner"></div>
+    </div>
+    <div class="flap flap-right">
+        <div class="flap-inner"></div>
+    </div>
+</div>
 
 <!-- CONVITE -->
-<main id="invitation">
+<div class="card-container">
 
- <div class="frame"></div>
+<div class="watercolor-corner corner-tl"></div>
+<div class="watercolor-corner corner-br"></div>
+<div class="watercolor-corner corner-center"></div>
 
- <div class="content">
+<div class="content-layer">
 
-  <div class="ornament">✧ ❀ ✧</div>
+<div class="top-ornament" style="margin-top:15px">✧ ❀ ✧</div>
 
-  <div class="photo-frame">
-   <img src="foto.jpg" alt="Laura Vituri">
-  </div>
+<p class="quote">
+"Entre tudo o que já vivi e tudo o que ainda sonho viver, existe uma noite que merece ser lembrada para sempre."
+</p>
 
-  <h1 class="name">LAURA<br>VITURI</h1>
+<!-- FOTO: ADICIONE FOTO.JPG NA PASTA DO INDEX.HTML -->
+<div class="photo-wrapper">
+    <img src="foto.PNG" alt="Laura Vituri - 15 anos">
+</div>
 
-  <div class="age">Meus 15 anos</div>
+<h1 class="name">LAURA VITURI</h1>
+<div class="age">15 anos</div>
 
-  <p class="intro">
-   Existem momentos que merecem ser eternizados...
-   E eu quero compartilhar esse momento tão especial com você!
-  </p>
+<div class="divider"></div>
 
-  <div class="divider"></div>
+<!-- DATA -->
+<div>
+    <div class="date-title">Uma noite especial</div>
+    <div class="date-description">
+        02 de Janeiro de 2027<br>
+        às 20h00
+    </div>
 
-  <div class="date-title">RESERVE ESTA DATA</div>
+    <!-- CONTAGEM REGRESSIVA -->
+    <div class="countdown-wrapper">
+        <div class="time-box">
+            <span class="time-number" id="cd-days">00</span>
+            <span class="time-label">Dias</span>
+        </div>
+        <div class="time-box">
+            <span class="time-number" id="cd-hours">00</span>
+            <span class="time-label">Horas</span>
+        </div>
+        <div class="time-box">
+            <span class="time-number" id="cd-minutes">00</span>
+            <span class="time-label">Min</span>
+        </div>
+        <div class="time-box">
+            <span class="time-number" id="cd-seconds">00</span>
+            <span class="time-label">Seg</span>
+        </div>
+    </div>
 
-  <div class="date">02 de Janeiro de 2027</div>
+    <a class="btn btn-outline" target="_blank"
+       rel="noopener noreferrer"
+       href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Anivers%C3%A1rio+da+Laura+Vituri&dates=20270102T230000Z/20270103T030000Z&details=A+grande+celebra%C3%A7%C3%A3o+do+anivers%C3%A1rio+da+Laura!&location=Sato+Buffet,+R.+Maestro+Erlon+Chaves,+465+-+Jardim+Samambaia,+Jales+-+SP">
+       <i class="ph ph-calendar-plus"></i>
+       Salvar na agenda
+    </a>
+</div>
 
-  <div class="hour">SÁBADO • 20 HORAS</div>
+<div class="divider-horizontal"></div>
 
-  <!-- CONTAGEM REGRESSIVA -->
-  <div class="countdown">
-   <div class="time">
-    <strong id="days">00</strong>
-    <span>Dias</span>
-   </div>
+<!-- BOTÕES INTERATIVOS -->
+<div class="action-grid">
 
-   <div class="time">
-    <strong id="hours">00</strong>
-    <span>Horas</span>
-   </div>
+    <!-- LOCALIZAÇÃO -->
+    <a class="action-card"
+       href="https://maps.google.com/?q=R.+Maestro+Erlon+Chaves,+465+-+Jardim+Samambaia,+Jales+-+SP,+15704-046"
+       target="_blank" rel="noopener noreferrer">
+        <i class="ph ph-map-pin"></i>
+        <span>Localização</span>
+    </a>
 
-   <div class="time">
-    <strong id="minutes">00</strong>
-    <span>Minutos</span>
-   </div>
+    <!-- PRESENTES -->
+    <button class="action-card" onclick="abrirModalPresentes()">
+        <i class="ph ph-gift"></i>
+        <span>Presentes</span>
+    </button>
 
-   <div class="time">
-    <strong id="seconds">00</strong>
-    <span>Segundos</span>
-   </div>
-  </div>
+    <!-- DRESS CODE -->
+    <button class="action-card" onclick="abrirDressCode()">
+        <i class="ph ph-sparkle"></i>
+        <span>Dress Code</span>
+    </button>
 
-  <a class="agenda"
-   href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Anivers%C3%A1rio+da+Laura+Vituri&dates=20270102T230000Z/20270103T030000Z&details=Anivers%C3%A1rio+de+15+anos+da+Laura&location=Sato+Buffet,+R.+Maestro+Erlon+Chaves,+465+-+Jales+-+SP"
-   target="_blank" rel="noopener">
-   <i class="ph ph-calendar-plus" style="font-size:19px"></i>
-   SALVAR NA AGENDA
-  </a>
+    <!-- WHATSAPP -->
+    <button class="action-card" onclick="abrirModalConfirmacao()">
+        <i class="ph ph-whatsapp-logo"></i>
+        <span>Confirmar presença</span>
+    </button>
 
-  <div class="divider"></div>
+</div>
 
-  <div class="menu-title">EXPLORE SEU CONVITE</div>
+<div class="divider-horizontal"></div>
 
-  <!-- ÍCONES INTERATIVOS -->
-  <div class="icon-menu">
+<div class="top-ornament">✧ ❀ ✧</div>
 
-   <a class="menu-item"
-    href="https://maps.google.com/?q=R.+Maestro+Erlon+Chaves,+465+-+Jardim+Samambaia,+Jales+-+SP,+15704-046"
-    target="_blank" rel="noopener">
+<p style="
+font-family:'Playfair Display',serif;
+font-style:italic;
+color:#865363;
+font-size:1.15rem;
+line-height:1.7;
+">
+Será uma alegria ter você comigo<br>
+nesta noite tão especial! ♡
+</p>
 
-    <i class="ph ph-map-pin"></i>
-    <span>LOCALIZAÇÃO</span>
-   </a>
+<div class="top-ornament">✧ ❀ ✧</div>
 
-   <button class="menu-item" onclick="abrir('gift')">
-    <i class="ph ph-gift"></i>
-    <span>PRESENTES</span>
-   </button>
+</div>
+</div>
 
-   <button class="menu-item" onclick="abrir('dress')">
-    <i class="ph ph-sparkle"></i>
-    <span>DRESS CODE</span>
-   </button>
+<!-- MODAL CONFIRMAÇÃO -->
+<div id="confirm-modal">
+    <div class="modal-card">
 
-   <button class="menu-item" onclick="abrir('confirm')">
-    <i class="ph ph-whatsapp-logo"></i>
-    <span>CONFIRMAR PRESENÇA</span>
-   </button>
+        <h2 class="modal-title">Confirmação</h2>
 
-  </div>
+        <p class="modal-text">
+            Que alegria ter você nesse momento!
+            Informe seu nome e sobrenome.
+        </p>
 
-  <div class="footer">Será inesquecível!</div>
+        <input type="text"
+               id="guest-name"
+               class="input-elegant"
+               placeholder="Ex: Maria Silva"
+               autocomplete="name">
 
-  <div class="footer-small">
-   COM CARINHO, LAURA ♡
-  </div>
+        <div style="display:flex;gap:10px">
+            <button onclick="fecharModalConfirmacao()"
+                    class="btn btn-outline"
+                    style="flex:1">
+                Cancelar
+            </button>
 
-  <div class="ornament" style="margin-top:30px">
-   ✧ ❀ ✧
-  </div>
+            <button onclick="enviarWhatsApp()"
+                    class="btn btn-solid"
+                    style="flex:1">
+                Enviar
+            </button>
+        </div>
 
- </div>
-</main>
+    </div>
+</div>
 
-<!-- CONTROLE DA MÚSICA -->
-<button class="music-button" id="musicButton" onclick="toggleMusic()">
- <i class="ph ph-speaker-high" id="musicIcon"></i>
+<!-- MODAL PRESENTES -->
+<div id="gift-modal">
+    <div class="modal-card">
+
+        <div id="gift-animation"></div>
+
+        <div class="gift-content">
+
+            <div style="font-size:32px;color:#ad7182;margin-bottom:12px">
+                ♡
+            </div>
+
+            <h2 class="modal-title">Um carinho especial</h2>
+
+            <p class="modal-text">
+                Sua presença é meu presente mais valioso!
+                Mas, se desejar me presentear, preparei essa opção com muito carinho.
+            </p>
+
+            <div class="pix-highlight">
+
+                <div style="
+                font-family:'Cinzel',serif;
+                color:#865363;
+                font-size:12px;
+                letter-spacing:2px;
+                margin-bottom:12px">
+                    COM CARINHO
+                </div>
+
+                <div style="
+                font-family:'Playfair Display',serif;
+                color:#865363;
+                font-size:22px;
+                margin-bottom:12px">
+                    Minha chave Pix ♡
+                </div>
+
+                <div class="pix-key">
+                    17992216006
+                </div>
+
+                <button onclick="copyPixCode()"
+                        class="btn btn-solid"
+                        style="width:100%;margin-top:15px">
+                    <i class="ph ph-copy"></i>
+                    Copiar chave Pix
+                </button>
+
+            </div>
+
+            <p style="
+            font-family:'Playfair Display',serif;
+            font-style:italic;
+            color:#865363;
+            font-size:19px">
+                Obrigada por todo carinho! ♡
+            </p>
+
+            <button onclick="fecharModalPresentes()"
+                    class="btn btn-outline"
+                    style="width:100%">
+                Voltar ao convite
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<!-- MODAL DRESS CODE -->
+<div id="dress-modal">
+    <div class="modal-card">
+
+        <div style="font-size:35px;color:#ad7182;margin-bottom:10px">
+            ✧
+        </div>
+
+        <h2 class="modal-title">Dress Code</h2>
+
+        <p class="modal-text">
+            <strong style="color:#ad7182">Esporte Fino</strong>
+            <br><br>
+
+            <strong>Para os homens</strong><br>
+            Calça social ou sarja e camisa. O uso de blazer é opcional.
+
+            <br><br>
+
+            <strong>Para as mulheres</strong><br>
+            Vestidos midi, calças ou conjuntos sofisticados.
+
+            <br><br>
+
+            <span style="font-style:italic">
+            A proposta é uma produção elegante e confortável.
+            O mais importante é que você se sinta bem para celebrar conosco!
+            </span>
+        </p>
+
+        <button onclick="fecharDressCode()"
+                class="btn btn-outline"
+                style="width:100%">
+            Voltar ao convite
+        </button>
+
+    </div>
+</div>
+
+<!-- MÚSICA: ADICIONE MUSICA.MP3 NA PASTA -->
+<audio id="background-music" src="musica.mp3" loop preload="auto"></audio>
+
+<!-- CONTROLE DE MÚSICA -->
+<button class="music-control" id="music-control"
+        onclick="alternarMusica()" aria-label="Pausar ou tocar música">
+    <i class="ph ph-music-notes"></i>
 </button>
 
-<!-- PRESENTES -->
-<div class="modal" id="gift">
- <div class="modal-card">
+<div id="toast">Notificação</div>
 
-  <button class="close" onclick="fechar('gift')">×</button>
-
-  <div class="modal-icon">♡</div>
-
-  <h2>Um carinho especial</h2>
-
-  <p>
-   Sua presença é o meu maior presente!
-   Mas, se desejar me presentear, preparei esta opção com muito carinho.
-  </p>
-
-  <div style="font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;color:#865363">
-   MINHA CHAVE PIX
-  </div>
-
-  <div class="pix-box" id="pixKey">
-   17992216006
-  </div>
-
-  <button class="action-button" onclick="copiarPix()">
-   <i class="ph ph-copy"></i> COPIAR CHAVE PIX
-  </button>
-
-  <p style="font-family:'Playfair Display',serif;font-style:italic">
-   Obrigada por todo carinho! ♡
-  </p>
-
-  <button class="action-button secondary" onclick="fechar('gift')">
-   VOLTAR AO CONVITE
-  </button>
-
- </div>
 </div>
-
-<!-- DRESS CODE -->
-<div class="modal" id="dress">
- <div class="modal-card">
-
-  <button class="close" onclick="fechar('dress')">×</button>
-
-  <div class="modal-icon">
-   <i class="ph ph-sparkle"></i>
-  </div>
-
-  <h2>Dress Code</h2>
-
-  <p style="font-family:'Cinzel',serif;color:#865363">
-   ESPORTE FINO
-  </p>
-
-  <p>
-   Para tornar nossa noite ainda mais especial,
-   sugerimos um visual elegante e confortável.
-  </p>
-
-  <div class="divider"></div>
-
-  <p>
-   <strong>Para os homens</strong><br>
-   Calça social ou sarja e camisa.
-   Blazer opcional.
-  </p>
-
-  <p>
-   <strong>Para as mulheres</strong><br>
-   Vestidos midi, calças ou conjuntos sofisticados.
-  </p>
-
-  <p style="font-style:italic;font-size:12px">
-   As sugestões são apenas uma inspiração.
-   O importante é se sentir bem para celebrar!
-  </p>
-
-  <button class="action-button secondary" onclick="fechar('dress')">
-   VOLTAR AO CONVITE
-  </button>
-
- </div>
-</div>
-
-<!-- CONFIRMAÇÃO -->
-<div class="modal" id="confirm">
- <div class="modal-card">
-
-  <button class="close" onclick="fechar('confirm')">×</button>
-
-  <div class="modal-icon">
-   <i class="ph ph-heart"></i>
-  </div>
-
-  <h2>Confirme sua presença</h2>
-
-  <p>
-   Será uma alegria ter você comigo nessa noite especial!
-  </p>
-
-  <input
-   class="input"
-   id="guestName"
-   type="text"
-   placeholder="Digite seu nome e sobrenome"
-   autocomplete="name"
-  >
-
-  <button class="action-button" onclick="confirmar()">
-   <i class="ph ph-whatsapp-logo"></i>
-   CONFIRMAR PELO WHATSAPP
-  </button>
-
-  <button class="action-button secondary" onclick="fechar('confirm')">
-   VOLTAR AO CONVITE
-  </button>
-
- </div>
-</div>
-
-<div id="toast">Mensagem</div>
 
 <script>
 
 /* ELEMENTOS */
 
-const opening=document.getElementById('opening');
-const invitation=document.getElementById('invitation');
-const music=document.getElementById('music');
-const musicButton=document.getElementById('musicButton');
+const envelopeLayer = document.getElementById('envelope-layer');
+const modalConfirmacao = document.getElementById('confirm-modal');
+const modalPresentes = document.getElementById('gift-modal');
+const modalDress = document.getElementById('dress-modal');
+const inputNome = document.getElementById('guest-name');
+const giftAnimation = document.getElementById('gift-animation');
+const music = document.getElementById('background-music');
+const musicControl = document.getElementById('music-control');
 
-/* ENTRAR NO CONVITE */
+let conviteAberto = false;
 
-async function entrar(){
+/* ABRIR CONVITE E INICIAR MÚSICA */
 
- opening.classList.add('hidden');
+envelopeLayer.addEventListener('click', async () => {
 
- invitation.classList.add('visible');
+    if(conviteAberto) return;
 
- document.body.style.overflow='auto';
+    conviteAberto = true;
 
- musicButton.classList.add('show');
+    envelopeLayer.classList.add('is-open');
 
- try{
-  await music.play();
- }catch(e){
-  console.log('Toque para iniciar a música.');
- }
+    document.body.style.overflowY = 'auto';
 
-}
+    musicControl.classList.add('visible');
 
-/* MÚSICA */
+    try{
+        await music.play();
+        musicControl.classList.add('playing');
+        musicControl.innerHTML = '<i class="ph ph-pause"></i>';
+    }catch(error){
+        musicControl.classList.remove('playing');
+        musicControl.innerHTML = '<i class="ph ph-play"></i>';
+    }
 
-function toggleMusic(){
+});
 
- if(music.paused){
-  music.play().then(()=>{
-   document.getElementById('musicIcon').className='ph ph-speaker-high';
-  }).catch(()=>showToast('Não foi possível iniciar a música.'));
- }else{
-  music.pause();
-  document.getElementById('musicIcon').className='ph ph-speaker-slash';
- }
+/* CONTROLE DE MÚSICA */
+
+async function alternarMusica(){
+
+    if(music.paused){
+
+        try{
+            await music.play();
+            musicControl.classList.add('playing');
+            musicControl.innerHTML = '<i class="ph ph-pause"></i>';
+        }catch(error){
+            showToast('Não foi possível iniciar a música.');
+        }
+
+    }else{
+
+        music.pause();
+        musicControl.classList.remove('playing');
+        musicControl.innerHTML = '<i class="ph ph-play"></i>';
+
+    }
 
 }
 
 /* CONTAGEM REGRESSIVA */
 
-const eventDate=new Date(2027,0,2,20,0,0).getTime();
+const dataFesta = new Date(2027,0,2,20,0,0).getTime();
 
 function atualizarContagem(){
 
- const agora=Date.now();
- const distancia=eventDate-agora;
+    const agora = Date.now();
+    const distancia = dataFesta - agora;
 
- if(distancia<=0){
-  document.querySelector('.countdown').innerHTML=
-   '<p style="color:#865363">O grande dia chegou! ✨</p>';
-  return;
- }
+    if(distancia <= 0){
 
- const dias=Math.floor(distancia/86400000);
- const horas=Math.floor((distancia%86400000)/3600000);
- const minutos=Math.floor((distancia%3600000)/60000);
- const segundos=Math.floor((distancia%60000)/1000);
+        document.querySelector('.countdown-wrapper').innerHTML =
+        '<div style="color:#ad7182;font-family:Playfair Display;font-size:1.1rem">O grande dia chegou! ✨</div>';
 
- document.getElementById('days').textContent=dias;
- document.getElementById('hours').textContent=String(horas).padStart(2,'0');
- document.getElementById('minutes').textContent=String(minutos).padStart(2,'0');
- document.getElementById('seconds').textContent=String(segundos).padStart(2,'0');
+        clearInterval(countdownTimer);
+        return;
+    }
+
+    const dias = Math.floor(distancia / 86400000);
+    const horas = Math.floor((distancia % 86400000) / 3600000);
+    const minutos = Math.floor((distancia % 3600000) / 60000);
+    const segundos = Math.floor((distancia % 60000) / 1000);
+
+    document.getElementById('cd-days').innerText = String(dias).padStart(2,'0');
+    document.getElementById('cd-hours').innerText = String(horas).padStart(2,'0');
+    document.getElementById('cd-minutes').innerText = String(minutos).padStart(2,'0');
+    document.getElementById('cd-seconds').innerText = String(segundos).padStart(2,'0');
 
 }
 
+const countdownTimer = setInterval(atualizarContagem,1000);
 atualizarContagem();
-setInterval(atualizarContagem,1000);
 
-/* MODAIS */
+/* MODAL CONFIRMAÇÃO */
 
-function abrir(id){
- document.getElementById(id).classList.add('show');
+function abrirModalConfirmacao(){
 
- if(id==='gift'){
-  iniciarFlores();
- }
+    modalConfirmacao.classList.add('show');
+    inputNome.value = '';
+
+    setTimeout(()=>inputNome.focus(),300);
+
 }
 
-function fechar(id){
- document.getElementById(id).classList.remove('show');
-
- if(id==='gift'){
-  pararFlores();
- }
-}
-
-/* PIX */
-
-async function copiarPix(){
-
- const chave='17992216006';
-
- try{
-
-  if(navigator.clipboard && window.isSecureContext){
-   await navigator.clipboard.writeText(chave);
-  }else{
-   const campo=document.createElement('textarea');
-   campo.value=chave;
-   document.body.appendChild(campo);
-   campo.select();
-
-   const sucesso=document.execCommand('copy');
-   campo.remove();
-
-   if(!sucesso) throw new Error();
-  }
-
-  showToast('Chave Pix copiada com sucesso! ♡');
-
- }catch(e){
-  showToast('Não foi possível copiar a chave.');
- }
-
+function fecharModalConfirmacao(){
+    modalConfirmacao.classList.remove('show');
 }
 
 /* WHATSAPP */
 
-function confirmar(){
+function enviarWhatsApp(){
 
- const nome=document.getElementById('guestName').value.trim();
+    const nome = inputNome.value.trim();
 
- if(!nome){
-  showToast('Por favor, informe seu nome.');
-  return;
- }
+    if(!nome){
+        showToast('Por favor, preencha seu nome.');
+        inputNome.focus();
+        return;
+    }
 
- const numero='5519993405480';
+    const mensagem =
+    `Olá! Que alegria poder fazer parte desse momento. Confirmo minha presença no aniversário da Laura! ✨🥂
 
- const mensagem=
- `Olá! Confirmo minha presença no aniversário de 15 anos da Laura! ✨🥂
+*Nome:* ${nome}`;
 
-Nome: ${nome}`;
+    const numeroWhatsApp = '5519993405480';
 
- const link=
- 'https://api.whatsapp.com/send?phone='+
- numero+'&text='+encodeURIComponent(mensagem);
+    const link =
+    `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensagem)}`;
 
- window.open(link,'_blank');
+    window.open(link,'_blank');
 
- fechar('confirm');
-
-}
-
-/* FLORES E CORAÇÕES CAINDO */
-
-let flowerTimer=null;
-
-function criarFlor(){
-
- if(!document.getElementById('gift').classList.contains('show')) return;
-
- const el=document.createElement('span');
-
- const simbolos=['❀','✿','❁','❃','♡','♥️'];
-
- el.className='falling';
- el.textContent=simbolos[Math.floor(Math.random()*simbolos.length)];
-
- el.style.left=Math.random()*100+'vw';
- el.style.fontSize=(13+Math.random()*13)+'px';
- el.style.color=['#d49ba9','#c98fa0','#e5bac5','#ad7182'][Math.floor(Math.random()*4)];
- el.style.opacity='.8';
- el.style.animationDuration=(5+Math.random()*4)+'s';
-
- document.body.appendChild(el);
-
- setTimeout(()=>el.remove(),9500);
+    fecharModalConfirmacao();
 
 }
 
-function iniciarFlores(){
+/* MODAL DRESS CODE */
 
- pararFlores();
+function abrirDressCode(){
+    modalDress.classList.add('show');
+}
 
- for(let i=0;i<12;i++){
-  setTimeout(criarFlor,i*180);
- }
+function fecharDressCode(){
+    modalDress.classList.remove('show');
+}
 
- flowerTimer=setInterval(criarFlor,500);
+/* ANIMAÇÃO FLORES E CORAÇÕES */
+
+let giftFallInterval = null;
+let giftStartTimers = [];
+
+function criarElementoCaindo(){
+
+    if(!modalPresentes.classList.contains('show')) return;
+
+    const elemento = document.createElement('span');
+
+    const flores = ['❀','✿','❁','❃','✽'];
+    const coracoes = ['♡','♥️'];
+
+    const ehFlor = Math.random() < 0.58;
+    const lista = ehFlor ? flores : coracoes;
+
+    elemento.className = 'gift-fall';
+
+    elemento.textContent =
+    lista[Math.floor(Math.random()*lista.length)];
+
+    const tamanho = ehFlor
+    ? 13 + Math.random()*12
+    : 12 + Math.random()*9;
+
+    const duracao = 4.5 + Math.random()*3.5;
+
+    const coresFlores = ['#d49ba9','#c98fa0','#e5bac5','#bd8797'];
+    const coresCoracoes = ['#d49ba9','#c98fa0','#e0a9b8'];
+
+    elemento.style.left = Math.random()*100+'%';
+    elemento.style.fontSize = tamanho+'px';
+
+    elemento.style.color = ehFlor
+    ? coresFlores[Math.floor(Math.random()*coresFlores.length)]
+    : coresCoracoes[Math.floor(Math.random()*coresCoracoes.length)];
+
+    elemento.style.animationDuration = duracao+'s';
+
+    elemento.style.setProperty(
+        '--drift',
+        (Math.random()*100-50)+'px'
+    );
+
+    elemento.style.setProperty(
+        '--rotation',
+        (Math.random()*500-250)+'deg'
+    );
+
+    giftAnimation.appendChild(elemento);
+
+    setTimeout(()=>{
+        elemento.remove();
+    },(duracao+.5)*1000);
 
 }
 
-function pararFlores(){
+function iniciarAnimacaoPresentes(){
 
- if(flowerTimer){
-  clearInterval(flowerTimer);
-  flowerTimer=null;
- }
+    pararAnimacaoPresentes();
 
- document.querySelectorAll('.falling').forEach(el=>el.remove());
+    for(let i=0;i<16;i++){
+
+        const timer = setTimeout(()=>{
+            criarElementoCaindo();
+        },i*130);
+
+        giftStartTimers.push(timer);
+
+    }
+
+    giftFallInterval = setInterval(criarElementoCaindo,420);
+
+}
+
+function pararAnimacaoPresentes(){
+
+    if(giftFallInterval){
+        clearInterval(giftFallInterval);
+        giftFallInterval = null;
+    }
+
+    giftStartTimers.forEach(timer=>clearTimeout(timer));
+
+    giftStartTimers = [];
+
+    giftAnimation.innerHTML = '';
+
+}
+
+/* MODAL PRESENTES */
+
+function abrirModalPresentes(){
+
+    modalPresentes.classList.add('show');
+    iniciarAnimacaoPresentes();
+
+}
+
+function fecharModalPresentes(){
+
+    modalPresentes.classList.remove('show');
+    pararAnimacaoPresentes();
+
+}
+
+/* COPIAR PIX */
+
+async function copyPixCode(){
+
+    const pixKey = '17992216006';
+
+    try{
+
+        if(navigator.clipboard && window.isSecureContext){
+
+            await navigator.clipboard.writeText(pixKey);
+
+        }else{
+
+            const tempInput = document.createElement('textarea');
+
+            tempInput.value = pixKey;
+            tempInput.style.position = 'fixed';
+            tempInput.style.opacity = '0';
+
+            document.body.appendChild(tempInput);
+
+            tempInput.focus();
+            tempInput.select();
+            tempInput.setSelectionRange(0,99999);
+
+            const copied = document.execCommand('copy');
+
+            document.body.removeChild(tempInput);
+
+            if(!copied) throw new Error('Falha ao copiar');
+
+        }
+
+        showToast('Chave Pix copiada com sucesso! ♡');
+
+    }catch(error){
+
+        showToast('Não foi possível copiar. Tente novamente.');
+
+    }
 
 }
 
 /* NOTIFICAÇÕES */
 
-let toastTimer;
-
 function showToast(message){
 
- const toast=document.getElementById('toast');
+    const toast = document.getElementById('toast');
 
- toast.textContent=message;
- toast.classList.add('show');
+    toast.innerText = message;
+    toast.classList.add('show');
 
- clearTimeout(toastTimer);
-
- toastTimer=setTimeout(()=>{
-  toast.classList.remove('show');
- },3000);
+    setTimeout(()=>{
+        toast.classList.remove('show');
+    },3000);
 
 }
 
-/* FECHAR CLICANDO FORA */
+/* FECHAR MODAIS CLICANDO FORA */
 
-document.querySelectorAll('.modal').forEach(modal=>{
+modalConfirmacao.addEventListener('click',event=>{
+    if(event.target === modalConfirmacao){
+        fecharModalConfirmacao();
+    }
+});
 
- modal.addEventListener('click',e=>{
+modalPresentes.addEventListener('click',event=>{
+    if(event.target === modalPresentes){
+        fecharModalPresentes();
+    }
+});
 
-  if(e.target===modal){
-   fechar(modal.id);
-  }
-
- });
-
+modalDress.addEventListener('click',event=>{
+    if(event.target === modalDress){
+        fecharDressCode();
+    }
 });
 
 /* FECHAR COM ESC */
 
-document.addEventListener('keydown',e=>{
+document.addEventListener('keydown',event=>{
 
- if(e.key==='Escape'){
-  document.querySelectorAll('.modal.show').forEach(modal=>{
-   fechar(modal.id);
-  });
- }
+    if(event.key === 'Escape'){
+
+        fecharModalConfirmacao();
+        fecharModalPresentes();
+        fecharDressCode();
+
+    }
 
 });
 
