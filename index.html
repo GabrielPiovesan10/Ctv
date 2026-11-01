@@ -76,7 +76,7 @@ button, input {
     display: flex;
     cursor: pointer;
     transition: visibility 2s;
-    background: #ead5dc;
+    /* Removido o background rosa para mostrar o convite durante a abertura */
 }
 
 .flap {
@@ -127,6 +127,7 @@ button, input {
     font-size: 36px;
     text-shadow: 0 2px 12px rgba(80,45,60,.5);
     pointer-events: none;
+    transition: opacity 0.4s ease; /* Animação para a estrela sumir suavemente */
 }
 
 .is-open .flap-left {
@@ -141,6 +142,10 @@ button, input {
     pointer-events: none;
     visibility: hidden;
     transition-delay: 1.5s;
+}
+
+.is-open#envelope-layer::after {
+    opacity: 0; /* A estrela some no momento em que toca na tela */
 }
 
 /* PAPEL DO CONVITE */
@@ -325,7 +330,6 @@ button, input {
         drop-shadow(0 2px 1px rgba(75,70,80,.35))
         drop-shadow(0 4px 5px rgba(140,105,120,.2));
 
-    /* Tempo ajustado de 6s para 12s para um brilho mais suave e elegante */
     animation: metallicShine 12s ease-in-out infinite; 
 }
 
